@@ -1,6 +1,8 @@
 'use strict'
 
-const {db, models: {User} } = require('../server/db')
+const { db } = require('../server/db')
+const User = require('../server/db/models/User.js');
+const Product = require('../server/db/models/Products.js');
 
 /**
  * seed - this function clears the database, updates tables to
@@ -10,10 +12,14 @@ async function seed() {
   await db.sync({ force: true }) // clears db and matches models to tables
   console.log('db synced!')
 
-  // Creating Users
+  // Creating Products
+  const product = await Promise.all([ 
+    Product.create({ name: "Dragon Ball 5", price: 9000, quantity: 1, imgUrl: "https://p1.hiclipart.com/preview/77/394/529/esfera-del-dragon-de-5-estrella-render-hd-five-dragon-ball-illustration-png-clipart.jpg", description: "The Fifth Dragon Ball"}),
+  ]) 
+     // Creating Users
   const users = await Promise.all([
-    User.create({ username: 'cody', password: '123' }),
-    User.create({ username: 'murphy', password: '123' }),
+    User.create({ username: "cman", email: "cody.john@gmail.com", firstName: 'cody', lastName: 'johnny', password: '123', }),
+    User.create({ username: "mman", email: "murphy.sin@gmail.com",firstName: 'murphy', lastName: 'sin', password: '123' }),
   ])
 
   console.log(`seeded ${users.length} users`)
@@ -22,6 +28,9 @@ async function seed() {
     users: {
       cody: users[0],
       murphy: users[1]
+    },
+    product: {
+      dragonBall5: product[0]
     }
   }
 }
@@ -34,7 +43,7 @@ async function seed() {
 async function runSeed() {
   console.log('seeding...')
   try {
-    await seed()
+    await seed();
   } catch (err) {
     console.error(err)
     process.exitCode = 1
