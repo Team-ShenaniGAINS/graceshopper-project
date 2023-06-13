@@ -1,15 +1,15 @@
-import { configureStore } from '@reduxjs/toolkit';
-import logger from 'redux-logger';
-import authReducer from '../features/auth/authSlice';
-import productReducer from './productSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import logger from "redux-logger";
+import authReducer from "../features/auth/authSlice";
+import productsReducer from "../app/productSlice.js";
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
-    product: productReducer,
-   },
+    products: productsReducer,
+  },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
 
 export default store;
-export * from '../features/auth/authSlice';
+export * from "../features/auth/authSlice";

@@ -1,13 +1,15 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllProducts, selectProducts } from "../../app/productSlice";
+import { fetchAllProducts, selectProducts } from "../../app/productSlice.js";
 
 const Products = () => {
   const dispatch = useDispatch();
   const allProducts = useSelector(selectProducts);
 
   useEffect(() => {
+    console.log("b4")
     dispatch(fetchAllProducts());
+    console.log("after")
   }, [dispatch]);
 
   return (
