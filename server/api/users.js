@@ -1,6 +1,5 @@
 const router = require('express').Router()
-const { models: { User }} = require('../db')
-module.exports = router
+const Users = require('../db/models/User.js')
 
 router.get('/', async (req, res, next) => {
   try {
@@ -15,3 +14,56 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+// POST /api/users
+router.post('/', async (req, res, next) => {
+  try {
+    const { username, email } = req.body;
+    const newUser = await User.create({ username, email });
+    res.status(201).json(newUser);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// PUT /api/users/:id
+router.put('/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { username, email } = req.body;
+    const updatedUser = await User.findByPk(id);
+    
+    if (!updatedUser) {
+      return res.sendStatus(404);
+    }
+    
+    updatedUser.username = username;
+    updatedUser.email = email;
+    
+    await updatedUser.save();
+    
+    res.json(updatedUser);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// DELETE /api/users/:id
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const deletedUser = await User.findByPk(id);
+    
+    if (!deletedUser) {
+      return res.sendStatus(404);
+    }
+    
+    await deletedUser.destroy();
+    
+    res.sendStatus(204);
+  } catch (error) {
+    next(error);
+  }
+});
+
+module.exports = router;
