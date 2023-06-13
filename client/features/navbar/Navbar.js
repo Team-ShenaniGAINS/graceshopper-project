@@ -13,28 +13,45 @@ const Navbar = () => {
   };
 
   return (
-    <div>
-      <h1>FS-App-Template</h1>
-      <nav>
-        {isLoggedIn ? (
-          <div>
-            {/* The navbar will show these links after you log in */}
-            <Link to="/home">Home</Link>
-            <button type="button" onClick={logoutAndRedirectHome}>
-              Logout
-            </button>
-          </div>
-        ) : (
-          <div>
-            {/* The navbar will show these links before you log in */}
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Sign Up</Link>
-          </div>
-        )}
-      </nav>
-      <hr />
-    </div>
-  );
+		<>
+			<div>
+				<nav className="navbar">
+					{isLoggedIn ? (
+						<div className="navbar-container">
+							{/* The navbar will show these links after you log in */}
+							<Link to="/home">
+								Home
+								<img
+									src="https://cdn.myshoptet.com/usr/www.animerch.cz/user/documents/upload/Loga/2022/Logo%20Animerch%20%20%C4%8Dtverec%20-%20modro%20%C4%8Dern%C3%A1.png"
+									className="nav-logo"
+								></img>
+							</Link>
+							<button
+								className="logout-btn"
+								type="button"
+								onClick={logoutAndRedirectHome}
+							>
+								Logout
+							</button>
+							<Link to="/cart">
+								<i className="fa-solid fa-cart-shopping"></i>
+								Cart
+							</Link>
+						</div>
+					) : (
+						<div>
+							{/* The navbar will show these links before you log in */}
+							<Link to="/login">Login</Link>
+							<Link to="/signup">Sign Up</Link>
+              <Link to = "/shop">Shop</Link>
+              <Link to ="/cart">Cart</Link>
+						</div>
+					)}
+				</nav>
+			
+			</div>
+		</>
+	);
 };
 
 export default Navbar;
