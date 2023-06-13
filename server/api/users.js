@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const Users = require('../db/models/User.js')
+const User = require('../db/models/User.js')
 
 router.get('/', async (req, res, next) => {
   try {
@@ -15,7 +15,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-// POST /api/users
+// POST /api/user
 router.post('/', async (req, res, next) => {
   try {
     const { username, email } = req.body;
@@ -26,7 +26,7 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-// PUT /api/users/:id
+// PUT /api/user/:id
 router.put('/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -48,7 +48,7 @@ router.put('/:id', async (req, res, next) => {
   }
 });
 
-// DELETE /api/users/:id
+// DELETE /api/user/:id
 router.delete('/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
