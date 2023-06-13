@@ -20,8 +20,57 @@ async function seed() {
       quantity: 1,
       imgUrl:
         "https://p1.hiclipart.com/preview/77/394/529/esfera-del-dragon-de-5-estrella-render-hd-five-dragon-ball-illustration-png-clipart.jpg",
-      description: "The Fifth Dragon Ball",
+      description: "The fifth dragon ball out of seven, becareful what you wish for.",
     }),
+    Product.create({
+      name: 'Compact Web Shooter',
+      price: 15,
+      quantity: 100,
+      imgUrl: 'https://comicvine.gamespot.com/a/uploads/scale_small/0/1494/95930-17226-web-shooters.jpg',
+      description: 'Shoot webs and swing around like your favorite web head!',
+    }),
+    Product.create({
+      name: 'Nichirin Sword',
+      price: 500,
+      quantity: 20,
+      imgUrl: 'https://gbf.wiki/images/thumb/2/20/Weapon_b_1040912700.png/462px-Weapon_b_1040912700.png',
+      description: 'Planning on hunting some demons? Make sure you pick up one of these!',
+    }),
+    Product.create({
+      name: 'Lokakaka Fruit',
+      price: 1000,
+      quantity: 100,
+      imgUrl: 'https://static.wikia.nocookie.net/jjba/images/8/8c/Locacaca.png/revision/latest?cb=20190920212208',
+      description: 'Eat this to heal serious wounds in exchange for losing something of equal value.',
+    }),
+    Product.create({
+      name: 'Devil Fruit',
+      price: 50000,
+      quantity: 10,
+      imgUrl: 'https://ih1.redbubble.net/image.1148097706.8075/st,small,507x507-pad,600x600,f8f8f8.jpg',
+      description: 'Eat this and gain power beyond belief.',
+    }),
+    Product.create({
+      name: 'Stand Arrow',
+      price: 50000,
+      quantity: 1,
+      imgUrl: 'https://static.wikia.nocookie.net/jjba/images/8/83/Beetle_arrow_anime.png/revision/latest?cb=20190614221523',
+      description: 'Pierce yourself with this arrow and you will be gifted a stand.',
+    }),
+    Product.create({
+      name: 'Paladins Necklace',
+      price: 10000,
+      quantity: 1,
+      imgUrl: 'https://static.wikia.nocookie.net/hunterxhunter/images/a/aa/Paladins_Necklace_2011.png/revision/latest/scale-to-width-down/350?cb=20230521193551',
+      description: 'Protects the user from offensive spells',
+    }),
+    // Product.create({
+    //   name: '',
+    //   price: ,
+    //   quantity: ,
+    //   imgUrl: '',
+    //   description: '',
+    // }),
   ]);
   // Creating Users
   const users = await Promise.all([
@@ -39,6 +88,27 @@ async function seed() {
       lastName: "sin",
       password: "123",
     }),
+    User.create({
+      username: "Son-Goku",
+      email: "Bestf4ghter@yahoo.com",
+      firstName: "Kakarot",
+      lastName: "Sayian",
+      password: "ChiChi123",
+    }),
+    User.create({
+      username: "PirateKing",
+      email: "Pir4teK1ng@hotmail.com",
+      firstName: "Monkey",
+      lastName: "Luffy",
+      password: "ThousandSunny",
+    }),
+    // User.create({
+    //   username: "",
+    //   email: "",
+    //   firstName: "",
+    //   lastName: "",
+    //   password: "",
+    // }),
   ]);
 
   console.log(`seeded ${users.length} users`);
@@ -47,9 +117,17 @@ async function seed() {
     users: {
       cody: users[0],
       murphy: users[1],
+      goku: users[2],
+      luffy: users[3],
     },
     product: {
       dragonBall5: product[0],
+      webShooter: product[1],
+      nichirinSword: product[2],
+      lokakakaFruit: product[3],
+      devilFruit: product[4],
+      standArrow: product[5],
+      palNecklace: product[6],
     },
   };
 }
