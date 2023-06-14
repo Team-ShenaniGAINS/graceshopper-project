@@ -1,25 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { fetchSingleProduct, selectProduct } from './singleProductSlice.js';
 
-const SingleProduct = ({ title, price, quantity, description, image }) => {
-  const handleAddToCart = () => {
-    handleAddToCart(title, price);
-  };
+const SingleProduct = () => {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const product = useSelector(selectProduct);
+
+  useEffect(() => {
+    dispatch(fetchSingleProduct(id));
+  }, [dispatch, id]);
 
   return (
     <>
     <div className='single-product-container'>
-      <img src={image} alt={title} />
-      <h1 className='single-product-title'>{title}</h1>
-      <h2>{price}</h2>
-      <h2>{quantity}</h2>
-      <p>{description}</p>
-      <button onClick={handleAddToCart}>Add to Cart</button>
+      <img src={product.imgUrl} alt={product.title} />
+      <h1 className='single-product-title'>{product.name}</h1>
+      <h2>Price: {product.price}</h2>
+      <h2>Stock: {product.quantity}</h2>
+      <p>{product.description}</p>
+      <button>Add to Cart</button>
     </div>
-    <footer>
-      <Footer />
-    </footer>
     </>
   )
 }
 
-export default Product;
+export default SingleProduct;
