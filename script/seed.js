@@ -40,7 +40,7 @@ async function seed() {
       name: 'Lokakaka Fruit',
       price: 1000,
       quantity: 100,
-      imgUrl: '',
+      imgUrl: 'https://pbs.twimg.com/media/E1sYKCkWEAUVXTQ.jpg',
       description: 'Eat this to heal serious wounds in exchange for losing something of equal value.',
     }),
     Product.create({
@@ -54,14 +54,14 @@ async function seed() {
       name: 'Stand Arrow',
       price: 50000,
       quantity: 1,
-      imgUrl: '',
+      imgUrl: 'https://w0.peakpx.com/wallpaper/470/621/HD-wallpaper-stand-arrow-jojo-dio-jjba-requiem-requiem-arrow-the-world.jpg',
       description: 'Pierce yourself with this arrow and you will be gifted a stand.',
     }),
     Product.create({
       name: 'Paladins Necklace',
       price: 10000,
       quantity: 1,
-      imgUrl: '',
+      imgUrl: 'https://cdn.media.amplience.net/s/hottopic/14522989_hi?$productMainDesktop$',
       description: 'Protects the user from offensive spells',
     }),
     // Product.create({
