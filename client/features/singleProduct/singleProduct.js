@@ -22,4 +22,4 @@ const SingleProduct = ({ title, price, quantity, description, image }) => {
   )
 }
 
-export default Product;
+export default SingleProduct;
