@@ -2,6 +2,8 @@ const Sequelize = require("sequelize");
 const db = require("../db");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const dotenv = require('dotenv');
+dotenv.config();
 
 const SALT_ROUNDS = 5;
 
@@ -22,12 +24,6 @@ const User = db.define("user", {
       isEmail: true,
     },
   },
-  firstName: {
-    type: Sequelize.STRING,
-  },
-  lastName: {
-    type: Sequelize.STRING,
-  },
 });
 
 module.exports = User;
@@ -41,6 +37,7 @@ User.prototype.correctPassword = function (candidatePwd) {
 };
 
 User.prototype.generateToken = function () {
+  console.log(process.env.JWT)
   return jwt.sign({ id: this.id }, process.env.JWT);
 };
 
