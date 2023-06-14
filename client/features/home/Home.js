@@ -1,6 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Footer from "../footer/Footer";
+import Products from "../features/products/Products";
 // import Footer from "../footer/footer";
 
 /**
@@ -52,8 +54,11 @@ const Home = (props) => {
 				</Link>
 			</div>
 			<div>
+				<Products />
+			</div>
+			<div>
 				<footer className="homepage-footer">
-					
+					<Footer />
 				</footer>
 			</div>
 		</>
