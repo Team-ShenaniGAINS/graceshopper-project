@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import AuthForm from '../features/auth/AuthForm';
 import Home from '../features/home/Home';
 import { me } from './store';
-import SingleProduct from '../features/singleProduct/singleProduct.js';
+import SingleProduct from '../features/singleProduct/singleProduct.jsx';
 
 /**
  * COMPONENT
