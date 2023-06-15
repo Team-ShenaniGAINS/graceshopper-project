@@ -40,6 +40,19 @@ export const updateCartItemQuantity = createAsyncThunk(
   }
 );
 
+export const addToCart = createAsyncThunk(
+    "cart/addItem",
+    async ({ userId, productId, quantity = 1 }, { rejectWithValue }) => {
+      try {
+        const { data } = await axios.post(`/api/cart/${userId}/add`, { productId, quantity });
+        return data;
+      } catch (error) {
+        return rejectWithValue(error.response.data);
+      }
+    }
+  );
+  
+
 const cartSlice = createSlice({
   name: "cart",
   initialState: [],
@@ -58,6 +71,9 @@ const cartSlice = createSlice({
       if (index !== -1) {
         state[index].quantity = action.payload.quantity;
       }
+    });
+    builder.addCase(addToCart.fulfilled, (state, action) => {
+      state.push(action.payload);  // this assumes the backend returns the added item
     });
   },
 });

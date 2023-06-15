@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchSingleProduct, selectProduct } from './singleProductSlice.js';
+import { addToCart } from '../cart/cartSlice.js';
 
 const SingleProduct = () => {
   const { id } = useParams();
@@ -13,6 +14,11 @@ const SingleProduct = () => {
     console.log("this is singleProduct.jsx")
   }, [dispatch, id]);
 
+  const handleAddToCart = () => {
+    const userId = useSelector(state => state.auth.userId);
+    dispatch(addToCart({ userId, productId: product.id }));
+  };
+
   return (
     <>
     <div className='single-product-container'>
@@ -21,7 +27,7 @@ const SingleProduct = () => {
       <h2>Price: {product.price}</h2>
       <h2>Stock: {product.quantity}</h2>
       <p>{product.description}</p>
-      <button>Add to Cart</button>
+      <button onClick={handleAddToCart}>Add to Cart</button>
     </div>
     </>
   )
