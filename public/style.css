@@ -73,3 +73,43 @@ form div {
   width: 10rem;
 }
 
+/* Single Product View CSS */
+
+.single-product-container a {
+  text-decoration: none;
+}
+.single-product-container{
+  color: black;
+}
+
+/* Shop CSS */
+.container a {
+  text-decoration: none;
+  color: black;
+}
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  grid-gap: 20px;
+}
+
+.product-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 200px; 
+  width: 200px; 
+  border: 1px solid #ccc; 
+  padding: 10px; 
+  text-align: center; 
+}
+
+.product-item h1 {
+  margin-top: 10px;
+}
+
+.product-item img {
+  max-width: 100%; 
+  max-height: 100%; 
+}
