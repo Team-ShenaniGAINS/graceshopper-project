@@ -11,20 +11,6 @@ const Navbar = () => {
 		dispatch(logout());
 		navigate('/login');
 	};
-
-
-  return (
-		<>
-			<div>
-				<nav className="navbar">
-					{isLoggedIn ? (
-						<div className="navbar-container">
-							{/* The navbar will show these links after you log in */}
-							<img
-									src="https://cdn.myshoptet.com/usr/www.animerch.cz/user/documents/upload/Loga/2022/Logo%20Animerch%20%20%C4%8Dtverec%20-%20modro%20%C4%8Dern%C3%A1.png"
-									className="nav-logo"
-								></img>
-
 return (
 	<>
 		<div>
