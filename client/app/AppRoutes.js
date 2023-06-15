@@ -5,6 +5,9 @@ import AuthForm from '../features/auth/AuthForm';
 import Home from '../features/home/Home';
 import { me } from './store';
 import SingleProduct from '../features/singleProduct/singleProduct.jsx';
+import {Cart} from "../features/cart/Cart";
+import {cartSlice} from "../features/cart/cartSlice";
+
 
 /**
  * COMPONENT
@@ -23,7 +26,8 @@ const AppRoutes = () => {
       {isLoggedIn ? (
         <Routes>
           <Route path="/*" element={<Home />} />
-          <Route to="/home" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/cart" element = {<Cart/>}/>
         </Routes>
       ) : (
         <Routes>

@@ -28,6 +28,8 @@ return (
 								<i className="fa-solid fa-cart-shopping"></i>
 								Cart
 							</Link>
+							<Link to = "/shop">Shop</Link>
+							
 						</div>
 					) : (
 						<div>

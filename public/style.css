@@ -1,3 +1,4 @@
+/* default  */
 body {
   font-family: sans-serif;
 }
@@ -20,8 +21,56 @@ form div {
   display: inline-block;
 }
 
+
+/* Navbar.js */
 .nav-logo {
   float: right;
   width: 10%;
   height: auto;
 }
+
+/* Products.js
+.container{
+  display: flex;
+  justify-content: space-around;
+}
+
+.wrapper{
+  text-align: center;
+  background-color: bisque;
+  display: flex;
+  flex-direction: column-reverse;
+  margin: 1rem;
+ 
+}
+
+.productImages{
+  height: 10rem;
+  width: 10rem;
+} */
+
+
+/* Products.css */
+/* div containing items */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+/* individual item */
+.wrapper {
+  height: auto;
+  text-align: center;
+  font-size: .5rem;
+  margin: 1rem;
+  padding: 1rem;
+}
+
+.productImages {
+  height: 10rem;
+  width: 10rem;
+}
+

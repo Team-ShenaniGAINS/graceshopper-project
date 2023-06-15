@@ -4,12 +4,11 @@ import { Link } from "react-router-dom";
 import Footer from "../footer/Footer";
 import Products from "../products/Products";
 
-
 /**
  * COMPONENT
  */
 const Home = (props) => {
-	const username = useSelector((state) => state.auth.me.username);
+  const username = useSelector((state) => state.auth.me.username);
 
 	return (
 		<>
@@ -54,13 +53,8 @@ const Home = (props) => {
 				</Link>
 			</div>
 			<div>
-				<h1>Products List:</h1>
-				<Products />
-			</div>
-			<div>
 				<footer className="homepage-footer">
-					<div>hello world </div>
-					<Footer />
+					
 				</footer>
 			</div>
 		</>

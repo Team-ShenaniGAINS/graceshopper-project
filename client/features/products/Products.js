@@ -2,15 +2,14 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllProducts, selectProducts } from "./productSlice.js";
 import { Link } from "react-router-dom";
+import Footer from "../footer/Footer.js"
 
 const Products = () => {
   const dispatch = useDispatch();
   const allProducts = useSelector(selectProducts);
 
   useEffect(() => {
-    console.log("b4")
     dispatch(fetchAllProducts());
-    console.log("after")
   }, [dispatch]);
 
   return (
@@ -30,4 +29,3 @@ const Products = () => {
 };
 
 export default Products;
-
