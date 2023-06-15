@@ -15,7 +15,7 @@ export const productSlice = createSlice({
     name: "product",
     initialState: {},
     extraReducers: (builder) => {
-      builder.addCase(fetchSingleProduct.fulfilled, (action) => {
+      builder.addCase(fetchSingleProduct.fulfilled, (state, action) => {
         return action.payload;
       });
     },
