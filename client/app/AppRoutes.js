@@ -4,10 +4,10 @@ import { Route, Routes } from 'react-router-dom';
 import AuthForm from '../features/auth/AuthForm';
 import Home from '../features/home/Home';
 import { me } from './store';
+import Cart from "../features/cart/Cart";
 import SingleProduct from '../features/singleProduct/singleProduct.jsx';
 import {Cart} from "../features/cart/Cart";
 import {cartSlice} from "../features/cart/cartSlice";
-
 
 /**
  * COMPONENT

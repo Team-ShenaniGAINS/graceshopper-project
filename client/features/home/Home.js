@@ -54,8 +54,7 @@ const Home = (props) => {
 			</div>
 			<div>
 				<footer className="homepage-footer">
-					
-				</footer>
+					{/* <Footer /> */}
 			</div>
 		</>
 	);

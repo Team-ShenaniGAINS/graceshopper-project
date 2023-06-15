@@ -12,10 +12,8 @@ const Footer = () => {
 				<li>Email:animemerch@anime.com</li>
 			</ul>
 		</div>
-		<footer>
-			<Footer />
-		</footer>
-	</>;
+	</>
+	)
 };
 
 export default Footer;
