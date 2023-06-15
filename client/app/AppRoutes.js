@@ -5,7 +5,9 @@ import AuthForm from '../features/auth/AuthForm';
 import Home from '../features/home/Home';
 import { me } from './store';
 import Cart from "../features/cart/Cart";
-// import {cartSlice} from "../features/cart/cartSlice";
+import SingleProduct from '../features/singleProduct/singleProduct.jsx';
+import {Cart} from "../features/cart/Cart";
+import {cartSlice} from "../features/cart/cartSlice";
 
 /**
  * COMPONENT
@@ -41,6 +43,7 @@ const AppRoutes = () => {
             path="/signup"
             element={<AuthForm name="signup" displayName="Sign Up" />}
           />
+          <Route path='/products/:id' element={<SingleProduct />} />
         </Routes>
       )}
     </div>
