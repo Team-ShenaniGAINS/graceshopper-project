@@ -40,7 +40,7 @@ async function seed() {
       name: 'Lokakaka Fruit',
       price: 1000,
       quantity: 100,
-      // imgUrl: 'https://static.wikia.nocookie.net/jjba/images/8/8c/Locacaca.png/revision/latest?cb=20190920212208',
+      imgUrl: 'https://pbs.twimg.com/media/E1sYKCkWEAUVXTQ.jpg',
       description: 'Eat this to heal serious wounds in exchange for losing something of equal value.',
     }),
     Product.create({
@@ -54,14 +54,14 @@ async function seed() {
       name: 'Stand Arrow',
       price: 50000,
       quantity: 1,
-      // imgUrl: 'https://static.wikia.nocookie.net/jjba/images/8/83/Beetle_arrow_anime.png/revision/latest?cb=20190614221523',
+      imgUrl: 'https://w0.peakpx.com/wallpaper/470/621/HD-wallpaper-stand-arrow-jojo-dio-jjba-requiem-requiem-arrow-the-world.jpg',
       description: 'Pierce yourself with this arrow and you will be gifted a stand.',
     }),
     Product.create({
       name: 'Paladins Necklace',
       price: 10000,
       quantity: 1,
-      // imgUrl: 'https://static.wikia.nocookie.net/hunterxhunter/images/a/aa/Paladins_Necklace_2011.png/revision/latest/scale-to-width-down/350?cb=20230521193551',
+      imgUrl: 'https://cdn.media.amplience.net/s/hottopic/14522989_hi?$productMainDesktop$',
       description: 'Protects the user from offensive spells',
     }),
     // Product.create({

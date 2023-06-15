@@ -7,18 +7,22 @@ const Products = () => {
   const allProducts = useSelector(selectProducts);
 
   useEffect(() => {
-    console.log("b4")
     dispatch(fetchAllProducts());
-    console.log("after")
   }, [dispatch]);
 
   return (
     <div>
-      <div>
+      <div className="container">
         {allProducts.map((product) => (
           <div key={product.id}>
-            <h1>{product.name}</h1>
-            <img src={product.imgUrl} alt={product.name} />
+            <div className="wrapper">
+              <h1>{product.name}</h1>
+              <img
+                className="productImages"
+                src={product.imgUrl}
+                alt={product.name}
+              />
+            </div>
           </div>
         ))}
       </div>
@@ -27,4 +31,3 @@ const Products = () => {
 };
 
 export default Products;
-
