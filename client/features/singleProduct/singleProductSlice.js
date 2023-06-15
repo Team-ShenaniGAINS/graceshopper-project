@@ -15,12 +15,12 @@ export const productSlice = createSlice({
     name: "product",
     initialState: {},
     extraReducers: (builder) => {
-      builder.addCase(fetchSingleProduct.fulfilled, (state, action) => {
+      builder.addCase(fetchSingleProduct.fulfilled, (action) => {
         return action.payload;
       });
     },
   });
   
-  export const selectProduct = (state) => state.product;
+export const selectProduct = (state) => state.product;
   
-  export default productSlice.reducer;
+export default productSlice.reducer;

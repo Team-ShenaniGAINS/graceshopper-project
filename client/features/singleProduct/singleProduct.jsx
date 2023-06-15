@@ -10,6 +10,7 @@ const SingleProduct = () => {
 
   useEffect(() => {
     dispatch(fetchSingleProduct(id));
+    console.log("this is singleProduct.jsx")
   }, [dispatch, id]);
 
   return (
