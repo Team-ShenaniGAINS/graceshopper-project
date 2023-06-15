@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllProducts, selectProducts } from "./productSlice.js";
 import { Link } from "react-router-dom";
-import Footer from "../footer/Footer.js"
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -15,16 +14,18 @@ const Products = () => {
   return (
     <div>
       <div className="container">
-        {allProducts.map((product) => (
-          <div key={product.id}>
-            <div className="wrapper">
+        <div className="products-grid">
+          {allProducts.map((product) => (
+            <div key={product.id} className="product-item"> 
+              <div className="wrapper">
+                <Link to={`/products/${product.id}`}>
+                  <h1>{product.name}</h1>
+                  <img src={product.imgUrl} alt={product.name} />
+                </Link>
+              </div>
             </div>
-            <Link to={`/products/${product.id}`}>
-            <h1>{product.name}</h1>
-            <img src={product.imgUrl} alt={product.name} />
-            </Link>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
