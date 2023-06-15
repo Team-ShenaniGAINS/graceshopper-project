@@ -11,7 +11,7 @@ const SingleProduct = () => {
 
   useEffect(() => {
     dispatch(fetchSingleProduct(id));
-    console.log("this is singleProduct.jsx")
+    console.log("this is singleProduct.jsx", id, product)
   }, [dispatch, id]);
 
   const handleAddToCart = () => {
