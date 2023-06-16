@@ -18,7 +18,7 @@ const Cart = () => {
 	}, [dispatch, userId]);
 
 	const handleDeleteItem = (productId) => {
-		dispatch(removeItemFromCart({ userId, productId }));
+		dispatch(removeItemFromCart({ userId: userId,productId: productId }));
 	};
 
 	const handleQuantityChange = (productId, newQuantity) => {
@@ -77,7 +77,7 @@ const Cart = () => {
 								</td>
 								<td>
 									<button onClick={() => handleDeleteItem(product.id)}>
-										<i className="fa-solid fa-trash-can"></i>
+										Remove
 									</button>
 								</td>
 							</tr>

@@ -23,8 +23,7 @@ router.get("/:userId", (req, res) => {
 
 // Route to add an item to the cart
 router.post("/", (req, res) => {
-	console.log("here...");
-	console.log(req.body);
+	
 	const item = req.body;
 	cartItems.push(item);
 	res.json({ message: "Item added to the cart successfully." });
@@ -40,10 +39,12 @@ router.put("/:id", (req, res) => {
 });
 
 // Route to delete an item from the cart
-router.delete("/:id", (req, res) => {
-	const { id } = req.params;
-	cartItems = cartItems.filter((item) => item.id !== id);
-	res.json({ message: `Item with id ${id} has been deleted.` });
+router.delete("/:productId/remove", (req, res) => {
+	const { productId } = req.params;
+	cartItems = cartItems.filter((item) => item.productId !== productId);
+	res.json({ message: `Item with id ${productId} has been deleted.` });
 });
 
 module.exports = router;
+
+
