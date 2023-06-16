@@ -18,7 +18,7 @@ const Cart = () => {
 	}, [dispatch, userId]);
 
 	const handleDeleteItem = (productId) => {
-		dispatch(removeItemFromCart({ userId, productId }));
+		dispatch(removeItemFromCart({ userId: userId,productId: productId }));
 	};
 
 	const handleQuantityChange = (productId, newQuantity) => {
@@ -30,7 +30,7 @@ const Cart = () => {
 	};
 
 	const totalPrice = cartItems.reduce((acc, item) => {
-		const price = item.Product.price;
+		const price = item.Product ? item.Product.price : 0;
 		return acc + (price ? item.quantity * price : 0);
 	}, 0);
 
@@ -77,7 +77,7 @@ const Cart = () => {
 								</td>
 								<td>
 									<button onClick={() => handleDeleteItem(product.id)}>
-										<i className="fa-solid fa-trash-can"></i>
+										Remove
 									</button>
 								</td>
 							</tr>

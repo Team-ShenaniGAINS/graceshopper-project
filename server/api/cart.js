@@ -1,49 +1,47 @@
 const express = require("express");
 const router = express.Router();
-// const Cart = require('../db/models/cart.js');
 
-// In-memory storage for cart
 let cartItems = [];
 
-// Route to get current state of the cart
-router.get("/", (req, res) => {
-	res.json(cartItems);
-});
-
-// fetchCartItems based on userId
 router.get("/:userId", (req, res) => {
-	console.log(cartItems);
-	console.log(req.params.userId);
-
-	const userCartItems = cartItems.filter(
-		(item) => item.userId === +req.params.userId
-	);
-	res.json(userCartItems);
+    const userCartItems = cartItems.filter(
+        (item) => item.userId === +req.params.userId
+    );
+    res.json(userCartItems);
 });
 
-// Route to add an item to the cart
 router.post("/", (req, res) => {
-	console.log("here...");
-	console.log(req.body);
-	const item = req.body;
-	cartItems.push(item);
-	res.json({ message: "Item added to the cart successfully." });
+    const item = req.body;
+    cartItems.push(item);
+    res.json(item);
 });
 
-// Route to update an item in the cart
-router.put("/:id", (req, res) => {
-	const { id } = req.params;
-	const newItem = req.body;
+router.put("/:userId/update", (req, res) => {
+    const { userId } = req.params;
+    const { productId, quantity } = req.body;
 
-	cartItems = cartItems.map((item) => (item.id === id ? newItem : item));
-	res.json({ message: `Item with id ${id} has been updated.` });
+    let foundItem = cartItems.find(item => item.userId === +userId && item.Product.id === productId);
+
+    if (foundItem) {
+        foundItem.quantity = quantity;
+        res.json(foundItem);
+    } else {
+        res.status(404).json({ message: `Item with product id ${productId} for user ${userId} not found.` });
+    }
 });
 
-// Route to delete an item from the cart
-router.delete("/:id", (req, res) => {
-	const { id } = req.params;
-	cartItems = cartItems.filter((item) => item.id !== id);
-	res.json({ message: `Item with id ${id} has been deleted.` });
+router.delete("/:userId/remove", (req, res) => {
+    const { userId } = req.params;
+    const { productId } = req.body;
+    
+    const initialLength = cartItems.length;
+    cartItems = cartItems.filter((item) => !(item.userId === +userId && item.Product.id === productId));
+    
+    if (initialLength > cartItems.length) {
+        res.json({ message: `Item with product id ${productId} for user ${userId} has been deleted.` });
+    } else {
+        res.status(404).json({ message: `Item with product id ${productId} for user ${userId} not found.` });
+    }
 });
 
 module.exports = router;
