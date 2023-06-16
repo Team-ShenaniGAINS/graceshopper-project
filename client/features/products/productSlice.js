@@ -6,8 +6,7 @@ export const fetchAllProducts = createAsyncThunk(
 	async () => {
 		try {
 			const { data } = await axios.get("/api/products");
-			//   console.log(data);
-			//   doesnt work
+			
 			return data;
 		} catch (err) {
 			console.log(err);
@@ -21,8 +20,8 @@ export const productsSlice = createSlice({
 	reducers: {},
 	extraReducers: (builder) => {
 		builder.addCase(fetchAllProducts.fulfilled, (state, action) => {
-			console.log(action.payload);
-			//   doesnt work
+		
+			
 			return action.payload;
 		});
 	},
