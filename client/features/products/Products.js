@@ -2,32 +2,33 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllProducts, selectProducts } from "./productSlice.js";
 import { Link } from "react-router-dom";
-import Footer from "../footer/Footer.js"
 
 const Products = () => {
-  const dispatch = useDispatch();
-  const allProducts = useSelector(selectProducts);
+	const dispatch = useDispatch();
+	const allProducts = useSelector(selectProducts);
 
-  useEffect(() => {
-    dispatch(fetchAllProducts());
-  }, [dispatch]);
+	useEffect(() => {
+		dispatch(fetchAllProducts());
+	}, [dispatch]);
 
-  return (
-    <div>
-      <div className="container">
-        {allProducts.map((product) => (
-          <div key={product.id}>
-            <div className="wrapper">
-            </div>
-            <Link to={`/products/${product.id}`}>
-            <h1>{product.name}</h1>
-            <img src={product.imgUrl} alt={product.name} />
-            </Link>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+	return (
+		<div>
+			<div className="container">
+				<div className="products-grid">
+					{allProducts.map((product) => (
+						<div key={product.id} className="product-item">
+							<div className="wrapper">
+								<Link to={`/products/${product.id}`}>
+									<h1>{product.name}</h1>
+									<img src={product.imgUrl} alt={product.name} />
+								</Link>
+							</div>
+						</div>
+					))}
+				</div>
+			</div>
+		</div>
+	);
 };
 
 export default Products;

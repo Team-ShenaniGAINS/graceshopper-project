@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 // const Cart = require('../db/models/cart.js');
 
@@ -6,31 +6,44 @@ const router = express.Router();
 let cartItems = [];
 
 // Route to get current state of the cart
-router.get('/cart', (req, res) => {
-    res.json(cartItems);
+router.get("/", (req, res) => {
+	res.json(cartItems);
+});
+
+// fetchCartItems based on userId
+router.get("/:userId", (req, res) => {
+	console.log(cartItems);
+	console.log(req.params.userId);
+
+	const userCartItems = cartItems.filter(
+		(item) => item.userId === +req.params.userId
+	);
+	res.json(userCartItems);
 });
 
 // Route to add an item to the cart
-router.post('/cart', (req, res) => {
-    const item = req.body;
-    cartItems.push(item);
-    res.json({ message: 'Item added to the cart successfully.' });
+router.post("/", (req, res) => {
+	console.log("here...");
+	console.log(req.body);
+	const item = req.body;
+	cartItems.push(item);
+	res.json({ message: "Item added to the cart successfully." });
 });
 
 // Route to update an item in the cart
-router.put('/cart/:id', (req, res) => {
-    const { id } = req.params;
-    const newItem = req.body;
+router.put("/:id", (req, res) => {
+	const { id } = req.params;
+	const newItem = req.body;
 
-    cartItems = cartItems.map(item => item.id === id ? newItem : item);
-    res.json({ message: `Item with id ${id} has been updated.` });
+	cartItems = cartItems.map((item) => (item.id === id ? newItem : item));
+	res.json({ message: `Item with id ${id} has been updated.` });
 });
 
 // Route to delete an item from the cart
-router.delete('/cart/:id', (req, res) => {
-    const { id } = req.params;
-    cartItems = cartItems.filter(item => item.id !== id);
-    res.json({ message: `Item with id ${id} has been deleted.` });
+router.delete("/:id", (req, res) => {
+	const { id } = req.params;
+	cartItems = cartItems.filter((item) => item.id !== id);
+	res.json({ message: `Item with id ${id} has been deleted.` });
 });
 
 module.exports = router;
