@@ -15,11 +15,10 @@ async function seed() {
   // Creating Products
   const product = await Promise.all([
     Product.create({
-      name: "Dragon Ball 5",
+      name: "Dragon Balls",
       price: 9000,
-      quantity: 1,
-      imgUrl:
-        "https://p1.hiclipart.com/preview/77/394/529/esfera-del-dragon-de-5-estrella-render-hd-five-dragon-ball-illustration-png-clipart.jpg",
+      quantity: 7,
+      imgUrl:"https://cdn.shopify.com/s/files/1/0441/9405/products/Dragon_Ball_Stickers_Seven_Dragon_Balls_Z_GT_Super_1400x.jpg?v=1549034462",
       description: "The fifth dragon ball out of seven, becareful what you wish for.",
     }),
     Product.create({
@@ -40,7 +39,7 @@ async function seed() {
       name: 'Lokakaka Fruit',
       price: 1000,
       quantity: 100,
-      imgUrl: 'https://pbs.twimg.com/media/E1sYKCkWEAUVXTQ.jpg',
+      imgUrl: 'https://progameguides.com/wp-content/uploads/2021/09/Rokakaka-fruit-Roblox-Project-Star.png?resize=500%2C500',
       description: 'Eat this to heal serious wounds in exchange for losing something of equal value.',
     }),
     Product.create({
@@ -54,15 +53,50 @@ async function seed() {
       name: 'Stand Arrow',
       price: 50000,
       quantity: 1,
-      imgUrl: 'https://w0.peakpx.com/wallpaper/470/621/HD-wallpaper-stand-arrow-jojo-dio-jjba-requiem-requiem-arrow-the-world.jpg',
+      imgUrl: 'https://staticdelivery.nexusmods.com/mods/3174/images/thumbnails/85/85-1585932190-669867691.png',
       description: 'Pierce yourself with this arrow and you will be gifted a stand.',
     }),
     Product.create({
       name: 'Paladins Necklace',
       price: 10000,
       quantity: 1,
-      imgUrl: 'https://cdn.media.amplience.net/s/hottopic/14522989_hi?$productMainDesktop$',
-      description: 'Protects the user from offensive spells',
+      imgUrl: 'https://i.redd.it/57poc8ghf3m71.png',
+      description: 'Protects the user from offensive spells.',
+    }),
+    Product.create({
+      name: 'Captain America Shield',
+      price: 100000,
+      quantity: 1,
+      imgUrl: 'https://static.wixstatic.com/media/07f052_889c8636f7bf4b5d8f1d22af1f58d259~mv2.jpg/v1/fill/w_2500,h_2027,al_c/07f052_889c8636f7bf4b5d8f1d22af1f58d259~mv2.jpg',
+      description: 'The shield of a well renouned super soildier.',
+    }),
+    Product.create({
+      name: 'Pokeball',
+      price: 100,
+      quantity: 1000,
+      imgUrl: 'https://ssb.wiki.gallery/images/7/7b/Pok%C3%A9_Ball_Origin.png',
+      description: 'A basic Pokeball',
+    }),
+    Product.create({
+      name: 'Great Ball',
+      price: 200,
+      quantity: 1000,
+      imgUrl: 'https://cdn.shopify.com/s/files/1/0253/3294/0882/products/GreatBall1.png?v=1666201398',
+      description: 'A Great Pokeball, has 1.5x catch rate of a normal Pokeball.',
+    }),
+    Product.create({
+      name: 'Ultra Ball',
+      price: 350,
+      quantity: 100,
+      imgUrl: 'https://cdn.shopify.com/s/files/1/0253/3294/0882/products/UltraBall1.png?v=1666201529',
+      description: 'A Ultra Pokeball, has 2x the catch rate of a normal Pokeball.',
+    }),
+    Product.create({
+      name: 'Master Ball',
+      price: 10000,
+      quantity: 1,
+      imgUrl: 'https://playerverse.com/wp-content/uploads/2021/03/master_ball_pokemon_sword_and_shield_masterball_1577726001_28ef8f31.png',
+      description: 'The Master Pokeball, catches with 100% gaurentee.',
     }),
     // Product.create({
     //   name: '',
@@ -112,6 +146,7 @@ async function seed() {
   ]);
 
   console.log(`seeded ${users.length} users`);
+  console.log(`seeded ${product.length} products`);
   console.log(`seeded successfully`);
   return {
     users: {

@@ -89,7 +89,7 @@ form div {
 }
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); 
+  grid-template-columns: repeat(3, 1fr); 
   grid-gap: 20px;
 }
 
@@ -98,8 +98,8 @@ form div {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 200px; 
-  width: 200px; 
+  height: 400px; 
+  width: 400px; 
   border: 1px solid #ccc; 
   padding: 10px; 
   text-align: center; 
