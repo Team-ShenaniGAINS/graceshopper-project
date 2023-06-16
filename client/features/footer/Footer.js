@@ -7,10 +7,8 @@ const Footer = () => {
   return (
     <>
       <div className="footer">
-        <ul>
-          <li>Phone: 646-316-4371</li>
-          <li>Email:animemerch@anime.com</li>
-        </ul>
+        <h4>Phone: 646-316-4371</h4>
+        <h4>Email:animemerch@anime.com</h4>
       </div>
     </>
   );
