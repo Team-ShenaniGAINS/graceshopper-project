@@ -114,6 +114,7 @@ async function seed() {
       firstName: "cody",
       lastName: "johnny",
       password: "123",
+      isAdmin: true,
     }),
     User.create({
       username: "mman",
