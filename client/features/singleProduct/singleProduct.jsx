@@ -1,30 +1,47 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { fetchSingleProduct, selectProduct } from './singleProductSlice.js';
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import { fetchSingleProduct, selectProduct } from "./singleProductSlice.js";
+import { addCartItem } from "../cart/cartSlice.js";
 
 const SingleProduct = () => {
-  const { id } = useParams();
-  const dispatch = useDispatch();
-  const product = useSelector(selectProduct);
+	const { id } = useParams();
+	const dispatch = useDispatch();
+	const product = useSelector(selectProduct);
 
-  useEffect(() => {
-    dispatch(fetchSingleProduct(id));
-    console.log("this is singleProduct.jsx", id, product)
-  }, [dispatch, id]);
+	const me = useSelector((state) => state.auth.me);
 
-  return (
-    <>
-    <div className='single-product-container'>
-      <img src={product.imgUrl} alt={product.title} />
-      <h1 className='single-product-title'>{product.name}</h1>
-      <h2>Price: {product.price}</h2>
-      <h2>Stock: {product.quantity}</h2>
-      <p>{product.description}</p>
-      <button>Add to Cart</button>
-    </div>
-    </>
-  )
-}
+	console.log("Me,....", me);
+
+	useEffect(() => {
+		dispatch(fetchSingleProduct(id));
+		console.log("this is singleProduct.jsx", id, product);
+	}, [dispatch, id]);
+
+
+
+	const handleAddToCart = () => {
+		dispatch(
+			addCartItem({
+				userId: me.id,
+				productId: id,
+				quantity: 1,
+				Product: product,
+			})
+		);
+	};
+	return (
+		<>
+			<div className="single-product-container">
+				<img src={product.imgUrl} alt={product.title} />
+				<h1 className="single-product-title">{product.name}</h1>
+				<h2>Price: {product.price}</h2>
+				<h2>Stock: {product.quantity}</h2>
+				<p>{product.description}</p>
+				<button onClick={handleAddToCart}>Add to Cart</button>
+			</div>
+		</>
+	);
+};
 
 export default SingleProduct;
