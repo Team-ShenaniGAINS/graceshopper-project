@@ -1,64 +1,51 @@
-<<<<<<< HEAD
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { fetchSingleProduct, selectProduct } from './singleProductSlice.js';
-import { addToCart } from '../cart/cartSlice.js';
-=======
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchSingleProduct, selectProduct } from "./singleProductSlice.js";
-import { addCartItem } from "../cart/cartSlice.js";
->>>>>>> 7013d2672db24f61c90467566bc94f7517d9463a
+import { addCartItem, updateCartItemQuantity, fetchCartItems } from "../cart/cartSlice.js";
 
 const SingleProduct = () => {
 	const { id } = useParams();
 	const dispatch = useDispatch();
 	const product = useSelector(selectProduct);
-
+	const cartItems = useSelector((state) => state.cart);
 	const me = useSelector((state) => state.auth.me);
 
-<<<<<<< HEAD
-  const handleAddToCart = () => {
-    const userId = useSelector(state => state.auth.userId);
-    dispatch(addToCart({ userId, productId: product.id }));
-  };
-
-  return (
-    <>
-    <div className='single-product-container'>
-      <img src={product.imgUrl} alt={product.title} />
-      <h1 className='single-product-title'>{product.name}</h1>
-      <h2>Price: {product.price}</h2>
-      <h2>Stock: {product.quantity}</h2>
-      <p>{product.description}</p>
-      <button onClick={handleAddToCart}>Add to Cart</button>
-    </div>
-    </>
-  )
-}
-=======
 	console.log("Me,....", me);
->>>>>>> 7013d2672db24f61c90467566bc94f7517d9463a
 
 	useEffect(() => {
 		dispatch(fetchSingleProduct(id));
 		console.log("this is singleProduct.jsx", id, product);
 	}, [dispatch, id]);
 
-
+	useEffect(() => {
+		dispatch(fetchCartItems(me.id));
+	}, [dispatch, me.id]);
 
 	const handleAddToCart = () => {
-		dispatch(
-			addCartItem({
-				userId: me.id,
-				productId: id,
-				quantity: 1,
-				Product: product,
-			})
-		);
+		const itemInCart = cartItems.find((item) => item.productId === product.id);
+		if (itemInCart) {
+			// If item is already in cart, update the quantity.
+			dispatch(
+				updateCartItemQuantity({
+					userId: me.id,
+					productId: product.id,
+					quantity: itemInCart.quantity + 1
+				})
+			);
+		} else {
+			// If item is not in cart, add it to cart.
+			dispatch(
+				addCartItem({
+					userId: me.id,
+					productId: product.id,
+					quantity: 1,
+					Product: product,
+				})
+			);
+		}
 	};
+
 	return (
 		<>
 			<div className="single-product-container">
