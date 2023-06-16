@@ -1,37 +1,43 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchCartItems, updateCartItemQuantity, removeItemFromCart } from "./cartSlice";
+import {
+	fetchCartItems,
+	updateCartItemQuantity,
+	removeItemFromCart,
+} from "./cartSlice";
 import { Link } from "react-router-dom";
-// import Footer from "./Footer";
+import Footer from "../footer/Footer";
 
 const Cart = () => {
-    const dispatch = useDispatch();
-    const cartItems = useSelector((state) => state.cart);
-    const userId = useSelector((state) => state.auth.me.id);
-  
-    useEffect(() => {
-      dispatch(fetchCartItems(userId));
-    }, [dispatch, userId]);
+	const dispatch = useDispatch();
+	const cartItems = useSelector((state) => state.cart);
+	const userId = useSelector((state) => state.auth.me.id);
 
-    const handleDeleteItem = (productId) => {
-      dispatch(removeItemFromCart({ userId, productId }));
-    };
+	useEffect(() => {
+		dispatch(fetchCartItems(userId));
+	}, [dispatch, userId]);
 
-    const handleQuantityChange = (productId, newQuantity) => {
-      if (newQuantity > 0) {
-        dispatch(updateCartItemQuantity({ userId, productId, quantity: newQuantity }));
-      }
-    };
+	const handleDeleteItem = (productId) => {
+		dispatch(removeItemFromCart({ userId, productId }));
+	};
 
-    const totalPrice = cartItems.reduce((acc, item) => {
-      const price = item.Product.Price;
-      return acc + (price ? item.quantity * price : 0);
-    }, 0);
+	const handleQuantityChange = (productId, newQuantity) => {
+		if (newQuantity > 0) {
+			dispatch(
+				updateCartItemQuantity({ userId, productId, quantity: newQuantity })
+			);
+		}
+	};
 
-    const renderCartItems = () => {
-        if (cartItems.length === 0) {
-            return <div id="empty-cart">Your cart is empty</div>;
-        }
+	const totalPrice = cartItems.reduce((acc, item) => {
+		const price = item.Product.price;
+		return acc + (price ? item.quantity * price : 0);
+	}, 0);
+
+	const renderCartItems = () => {
+		if (cartItems.length === 0) {
+			return <div id="empty-cart">Your cart is empty</div>;
+		}
 		return (
 			<table>
 				<thead>
@@ -50,10 +56,10 @@ const Cart = () => {
 								<td className="cart-product-row">
 									<img
 										className="cart-image"
-										src={product.ImageUrl}
-										alt={product.Title}
+										src={product.imgUrl}
+										alt={product.name}
 									/>
-									<p className="cart-product-title">{product.Title}</p>
+									<p className="cart-product-title">{product.name}</p>
 								</td>
 								<td>
 									<input
@@ -67,7 +73,7 @@ const Cart = () => {
 									/>
 								</td>
 								<td className="cart-quanity">
-									${product.Price * item.quantity}
+									${product.price * item.quantity}
 								</td>
 								<td>
 									<button onClick={() => handleDeleteItem(product.id)}>
@@ -102,12 +108,9 @@ const Cart = () => {
 				<h1>Cart</h1>
 				{renderCartItems()}
 			</div>
-			<footer>
-				{/* <Footer /> */}
-			</footer>
+			<footer><Footer /></footer>
 		</>
 	);
-    
-}
+};
 
 export default Cart;
