@@ -47,16 +47,21 @@ const SingleProduct = () => {
 	};
 
 	return (
-		<>
+		<div className="container">
 			<div className="single-product-container">
-				<img src={product.imgUrl} alt={product.title} />
-				<h1 className="single-product-title">{product.name}</h1>
-				<h2>Price: {product.price}</h2>
-				<h2>Stock: {product.quantity}</h2>
-				<p>{product.description}</p>
-				<button onClick={handleAddToCart}>Add to Cart</button>
+				<img className="singleProductsImages" src={product.imgUrl} alt={product.title} />
+				<div className='singleProductRightSide'>
+					<h1 className="single-product-title">{product.name}</h1>
+					<h2>Price: {product.price}</h2>
+					<h2>Stock: {product.quantity}</h2>
+					<p>{product.description}</p>
+				</div>
+				
+					<button onClick={handleAddToCart}>Add to Cart</button>
+				
+				
 			</div>
-		</>
+		</div>
 	);
 };
 
