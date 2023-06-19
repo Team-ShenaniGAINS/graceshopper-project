@@ -17,10 +17,10 @@ const Cart = () => {
     dispatch(fetchCartItems(userId));
   }, [dispatch, userId]);
 
+
   const handleDeleteItem = (productId) => {
     dispatch(removeItemFromCart({ userId, productId }));
   };
-
   const handleQuantityChange = (productId, newQuantity) => {
     if (newQuantity > 0) {
       dispatch(
@@ -28,6 +28,7 @@ const Cart = () => {
       );
     }
   };
+
 
   const totalPrice = cartItems.reduce((acc, item) => {
     const price = item.Product.price;

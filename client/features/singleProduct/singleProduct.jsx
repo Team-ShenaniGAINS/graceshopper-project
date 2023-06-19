@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchSingleProduct, selectProduct } from "./singleProductSlice.js";
-import { addCartItem } from "../cart/cartSlice.js";
+import { addCartItem, updateCartItemQuantity, fetchCartItems } from "../cart/cartSlice.js";
 
 const SingleProduct = () => {
 	const { id } = useParams();
 	const dispatch = useDispatch();
 	const product = useSelector(selectProduct);
-
+	const cartItems = useSelector((state) => state.cart);
 	const me = useSelector((state) => state.auth.me);
 
 	console.log("Me,....", me);
@@ -18,18 +18,34 @@ const SingleProduct = () => {
 		console.log("this is singleProduct.jsx", id, product);
 	}, [dispatch, id]);
 
-
+	useEffect(() => {
+		dispatch(fetchCartItems(me.id));
+	}, [dispatch, me.id]);
 
 	const handleAddToCart = () => {
-		dispatch(
-			addCartItem({
-				userId: me.id,
-				productId: id,
-				quantity: 1,
-				Product: product,
-			})
-		);
+		const itemInCart = cartItems.find((item) => item.productId === product.id);
+		if (itemInCart) {
+			// If item is already in cart, update the quantity.
+			dispatch(
+				updateCartItemQuantity({
+					userId: me.id,
+					productId: product.id,
+					quantity: itemInCart.quantity + 1
+				})
+			);
+		} else {
+			// If item is not in cart, add it to cart.
+			dispatch(
+				addCartItem({
+					userId: me.id,
+					productId: product.id,
+					quantity: 1,
+					Product: product,
+				})
+			);
+		}
 	};
+
 	return (
 		<div className="container">
 			<div className="single-product-container">

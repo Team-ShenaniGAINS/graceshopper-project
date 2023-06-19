@@ -15,21 +15,20 @@ export const fetchCartItems = createAsyncThunk(
 
 export const addCartItem = createAsyncThunk(
 	"cart/addCartItem",
-	async ({ userId, productId, quantity, Product }, { rejectWithValue }) => {
+	async ({ userId, productId, quantity = 1, Product }, { rejectWithValue, getState }) => {
 		try {
-			console.log("in redux>>>>", {
-				userId,
-				productId,
-				quantity,
-				Product,
-			});
-			const { data } = await axios.post(`/api/cart`, {
-				userId,
-				productId,
-				quantity,
-				Product,
-			});
-			return data;
+			const { cart } = getState();
+			const itemIndex = cart.findIndex(item => item.Product.id === productId);
+
+			if (itemIndex !== -1) {
+				const item = cart[itemIndex];
+				const newQuantity = item.quantity + quantity;
+				const { data } = await axios.put(`/api/cart/${userId}/update`, { productId, quantity: newQuantity });
+				return data;
+			} else {
+				const { data } = await axios.post(`/api/cart`, { userId, productId, quantity, Product });
+				return data;
+			}
 		} catch (error) {
 			return rejectWithValue(error.response.data);
 		}
@@ -52,10 +51,7 @@ export const updateCartItemQuantity = createAsyncThunk(
 	"cart/updateItemQuantity",
 	async ({ userId, productId, quantity }, { rejectWithValue }) => {
 		try {
-			const { data } = await axios.put(`/api/cart/${userId}/update`, {
-				productId,
-				quantity,
-			});
+			const { data } = await axios.put(`/api/cart/${userId}/update`, { productId, quantity });
 			return data;
 		} catch (error) {
 			return rejectWithValue(error.response.data);
@@ -75,14 +71,21 @@ const cartSlice = createSlice({
 			return state.filter((item) => item.Product.id !== action.payload);
 		});
 		builder.addCase(updateCartItemQuantity.fulfilled, (state, action) => {
-			const index = state.findIndex(
-				(item) => item.Product.id === action.payload.ProductId
-			);
-			if (index !== -1) {
-				state[index].quantity = action.payload.quantity;
+            const index = state.findIndex((item) => item.Product.id === action.payload.ProductId);
+            if (index !== -1) {
+                state[index].quantity = action.payload.quantity;
+            }
+        });
+        
+		builder.addCase(addCartItem.fulfilled, (state, action) => {
+			const itemIndex = state.findIndex(item => item.Product.id === action.payload.ProductId);
+
+			if (itemIndex !== -1) {
+				state[itemIndex].quantity = action.payload.quantity;
+			} else {
+				state.push(action.payload);
 			}
 		});
-		builder.addCase(addCartItem.fulfilled, (state, action) => {});
 	},
 });
 
