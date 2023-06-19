@@ -7,6 +7,7 @@ import {
 } from "./cartSlice";
 import { Link } from "react-router-dom";
 import Footer from "../footer/Footer";
+import PayButton from "../PayButton/PayButton";
 
 const Cart = () => {
 	const dispatch = useDispatch();
@@ -94,7 +95,7 @@ const Cart = () => {
 							<strong>${totalPrice}</strong>
 						</td>
 						<td className="checkout-btn">
-							<Link to="/orderplaced">Checkout</Link>
+							<PayButton cartItems = {cartItems} />
 						</td>
 					</tr>
 				</tfoot>
