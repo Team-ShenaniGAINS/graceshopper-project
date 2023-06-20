@@ -16,6 +16,7 @@ import CreateProduct from '../features/addProducts/addProduct.jsx';
 
 const AppRoutes = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
+  const isAdmin = useSelector((state) => state.auth.me.isAdmin)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -31,7 +32,7 @@ const AppRoutes = () => {
           <Route path="/cart" element = {<Cart/>}/>
           <Route path="/shop" element={<Products />} />
           <Route path='/products/:id' element={<SingleProduct />} />
-          <Route path='/createProduct/' element={<CreateProduct />} />
+          {isAdmin && <Route path='/createProduct/' element={<CreateProduct />} />}
         </Routes>
       ) : (
         <Routes>
