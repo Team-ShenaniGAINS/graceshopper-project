@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Product = require("../db/models/Products.js");
+const requireAdmin  = require('./admin.js')
 
 // GET /api/products
 router.get("/", async (req, res, next) => {
@@ -13,7 +14,7 @@ router.get("/", async (req, res, next) => {
 });
 
 // POST /api/products
-router.post("/", async (req, res, next) => {
+router.post("/", requireAdmin, async (req, res, next) => {
 	try {
 		const { name, price, quantity, imgUrl, description } = req.body;
 		const product = await Product.create({
@@ -24,6 +25,10 @@ router.post("/", async (req, res, next) => {
 			description,
 		});
 		res.status(201).json(product);
+		if (product) {
+			console.log("this user is an admin")
+            res.send(product);
+        };
 	} catch (err) {
 		next(err);
 	}
