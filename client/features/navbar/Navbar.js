@@ -37,6 +37,7 @@ const Navbar = () => {
               </Link>
               <Link to="/shop">Shop</Link>
               {isAdmin && <Link to="/createProduct">Create Product</Link>}
+              {isAdmin && <Link to="/users">Users</Link>}
             </div>
           ) : (
             <div className="navbar-container">
