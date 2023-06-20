@@ -34,8 +34,6 @@ form div {
   text-align: left;
   background-color: rgb(116, 144, 187);
   height: 3rem;
-  display:flex;
-  justify-content: space-between;
 }
 
 /* AuthForm.js */
@@ -82,6 +80,9 @@ input{
 /* Footer.js */
 .footer{
   margin-top: 100%;
+  text-align: left;
+  background-color: rgb(116, 144, 187);
+  height: 3rem;
 }
 
 /* Products.css */
@@ -228,14 +229,3 @@ input{
   background-color: rgb(255,255,255);
 }
 
-/* Footer */
-
-.footer{
-  margin-left:-7%;
-  margin-right:-7%;
-  text-align: left;
-  background-color: rgb(116, 144, 187);
-  height: 3rem;
-  display:flex;
-  justify-content: space-between;
-}

@@ -4,6 +4,7 @@ import {
   fetchCartItems,
   updateCartItemQuantity,
   removeItemFromCart,
+  fetchCartItemsLocal
 } from "./cartSlice";
 import { Link } from "react-router-dom";
 import Footer from "../footer/Footer";
@@ -14,8 +15,21 @@ const Cart = () => {
   const userId = useSelector((state) => state.auth.me.id);
 
   useEffect(() => {
-    dispatch(fetchCartItems(userId));
-  }, [dispatch, userId]);
+		if (!userId) {
+			// fetch from local
+			dispatch(fetchCartItemsLocal());
+		} else {
+			dispatch(fetchCartItems(userId));
+		}
+	}, [dispatch, userId]);
+
+	useEffect(() => {
+		debugger;
+		if (!userId) {
+			// fetch from local
+			dispatch(fetchCartItemsLocal());
+		}
+	}, [dispatch]);
 
 
   const handleDeleteItem = (productId) => {
