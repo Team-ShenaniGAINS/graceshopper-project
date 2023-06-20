@@ -11,7 +11,7 @@ const store = configureStore({
     products: productsReducer,
     cart: cartReducer,
     product: productReducer,
-  
+    
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
