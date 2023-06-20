@@ -15,6 +15,7 @@ export const fetchAllProducts = createAsyncThunk(
 );
 
 export const addProductAsync = createAsyncThunk(
+
   "products/createProduct",
   async ({ name, price, imgUrl, quantity, description }) => {
     const { data } = await axios.post("/api/products", {
@@ -51,6 +52,7 @@ export const productsSlice = createSlice({
       return newState;
     });
   },
+
 });
 
 export const selectProducts = (state) => {
