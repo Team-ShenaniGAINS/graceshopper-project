@@ -96,7 +96,7 @@ const Cart = () => {
               <strong>Total: ${totalPrice}</strong>
             </td>
             <td className="checkout-btn">
-              <Link to="/orderplaced">Checkout</Link>
+              <Link to="/checkout">Checkout</Link>
             </td>
           </tr>
         </tfoot>

@@ -23,18 +23,19 @@ const Navbar = () => {
                 className="nav-logo"
               ></img>
               <Link to="/home">Home</Link>
-              <button
-                className="logout-btn"
-                type="button"
-                onClick={logoutAndRedirectHome}
-              >
-                Logout
-              </button>
+                
+              <Link to="/shop">Shop</Link>
               <Link to="/cart">
                 <i className="fa-solid fa-cart-shopping"></i>
                 Cart
               </Link>
-              <Link to="/shop">Shop</Link>
+           
+              <button className="logout-btn"
+                type="button"
+                onClick={logoutAndRedirectHome}>
+                Logout
+              </button>
+              
             </div>
           ) : (
             <div className="navbar-container">
@@ -45,8 +46,8 @@ const Navbar = () => {
               ></img>
               <Link to="/login">Login</Link>
               <Link to="/signup">Sign Up</Link>
-              <Link to="/shop">Shop</Link>
-              <Link to="/cart">Cart</Link>
+              <Link to ="/shop">Shop</Link>
+            
             </div>
           )}
         </nav>
