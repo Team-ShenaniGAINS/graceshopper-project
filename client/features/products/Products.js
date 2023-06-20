@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllProducts, selectProducts } from "./productSlice.js";
+import {
+  fetchAllProducts,
+  deleteProductAsync,
+  selectProducts,
+} from "./productSlice.js";
 import { Link } from "react-router-dom";
 
 const Products = () => {
@@ -8,8 +12,14 @@ const Products = () => {
   const allProducts = useSelector(selectProducts);
 
   useEffect(() => {
+    console.log("Fetching all products");
     dispatch(fetchAllProducts());
   }, [dispatch]);
+
+  const handleDelete = (productId) => {
+    console.log("Deleting product with id:", productId);
+    dispatch(deleteProductAsync(productId));
+  };
 
   return (
     <div>
@@ -26,6 +36,9 @@ const Products = () => {
                     alt={product.name}
                   />
                 </Link>
+              </div>
+              <div className="delete-button">
+                <button onClick={() => handleDelete(product.id)}>Delete</button>
               </div>
             </div>
           ))}
