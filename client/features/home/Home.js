@@ -8,12 +8,11 @@ import Footer from "../footer/Footer";
  */
 const Home = (props) => {
   const username = useSelector((state) => state.auth.me.username);
-  const isAdmin = useSelector((state) => state.auth.me.isAdmin)
 
   return (
     <div className="home-container">
       <div className="home-title">
-        <h1>Welcome to Animerch, {username}! {isAdmin}</h1>
+        <h1>Welcome to Animerch, {username}!</h1>
         <h3>
           Browse our selection of extravagant selection of new and classic
           relics!
