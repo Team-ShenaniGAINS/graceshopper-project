@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import {
   fetchCartItems,
   updateCartItemQuantity,
@@ -10,25 +10,27 @@ import Footer from "../footer/Footer";
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const cartItems = useSelector((state) => state.cart);
+  const cartItems = useSelector((state) => state.cart, shallowEqual);
   const userId = useSelector((state) => state.auth.me.id);
 
   useEffect(() => {
     dispatch(fetchCartItems(userId));
   }, [dispatch, userId]);
 
-
   const handleDeleteItem = (productId) => {
     dispatch(removeItemFromCart({ userId, productId }));
   };
+  
+  const [quantities, setQuantities] = useState({});
+
   const handleQuantityChange = (productId, newQuantity) => {
+    setQuantities(prev => ({ ...prev, [productId]: newQuantity }));
     if (newQuantity > 0) {
       dispatch(
         updateCartItemQuantity({ userId, productId, quantity: newQuantity })
       );
     }
   };
-
 
   const totalPrice = cartItems.reduce((acc, item) => {
     const price = item.Product.price;
@@ -41,14 +43,6 @@ const Cart = () => {
     }
     return (
       <table className="cartTable">
-        {/* <thead>
-          <tr>
-            <th>Title</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Remove</th>
-          </tr>
-        </thead> */}
         <tbody className="cartItemContainer">
           {cartItems.map((item) => {
             const product = userId && item.Product ? item.Product : item;
@@ -64,19 +58,24 @@ const Cart = () => {
                     <p className="cart-product-title">{product.name}</p>
                     <div className="cart-quanity">
                       <td>
-                        <input
-                          type="number"
-                          value={item.quantity}
-                          min="1"
-                          onChange={(e) =>
-                            handleQuantityChange(
-                              product.id,
-                              parseInt(e.target.value)
-                            )
-                          }
-                        />
+                        <select
+                          value={quantities[product.id] || item.quantity}
+                          onChange={(e) => {
+                            const newQuantity = parseInt(e.target.value);
+                            handleQuantityChange(product.id, newQuantity);
+                          }}
+                        >
+                          {[...Array(10).keys()].map((value) => {
+                            const realValue = value + 1;
+                            return (
+                              <option key={realValue} value={realValue}>
+                                {realValue}
+                              </option>
+                            );
+                          })}
+                        </select>
                       </td>
-                      <td>${product.price * item.quantity}</td>
+                      <td>${product.price * (quantities[product.id] || item.quantity)}</td>
                     </div>
                     <td>
                       <button onClick={() => handleDeleteItem(product.id)}>
@@ -104,6 +103,7 @@ const Cart = () => {
     );
   };
 
+ 
   return (
     <>
       <div className="cart-container">{renderCartItems()}</div>

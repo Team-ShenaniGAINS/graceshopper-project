@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, createSelector } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const fetchCartItems = createAsyncThunk(
@@ -59,6 +59,11 @@ export const updateCartItemQuantity = createAsyncThunk(
 	}
 );
 
+export const selectTotalQuantity = createSelector(
+	(state) => state.cart,
+	(cartItems) => cartItems.reduce((total, item) => total + item.quantity, 0)
+  )
+
 const cartSlice = createSlice({
 	name: "cart",
 	initialState: [],
@@ -76,7 +81,6 @@ const cartSlice = createSlice({
                 state[index].quantity = action.payload.quantity;
             }
         });
-        
 		builder.addCase(addCartItem.fulfilled, (state, action) => {
 			const itemIndex = state.findIndex(item => item.Product.id === action.payload.ProductId);
 
