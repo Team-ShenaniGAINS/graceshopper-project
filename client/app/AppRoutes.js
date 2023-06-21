@@ -37,7 +37,7 @@ const AppRoutes = () => {
 					<Route path="/cart" element={<Cart />} />
 					<Route path="/shop" element={<Products />} />
 					<Route path="/products/:id" element={<SingleProduct />} />
-          <Route path="/checkout" element={<Checkout />} />
+        			<Route path="/checkout" element={<Checkout />} />
         			{isAdmin && <Route path='/createProduct/' element={<CreateProduct />} />}
         			{isAdmin && <Route path='/users' element={<UserView />} />}
 				</Routes>
@@ -59,6 +59,7 @@ const AppRoutes = () => {
 					<Route path="/shop" element={<Products />} />
 					<Route path="/cart" element={<Cart />} />
 					<Route path="/products/:id" element={<SingleProduct />} />
+					<Route path="/checkout" element={<Checkout />} />
 				</Routes>
 			)}
 		</div>

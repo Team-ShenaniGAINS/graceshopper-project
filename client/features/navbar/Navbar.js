@@ -52,9 +52,9 @@ const Navbar = () => {
 							<Link to="/signup">Sign Up</Link>
 							<Link to="/shop">Shop</Link>
 							<Link to="/cart">
-								<i className="fa-solid fa-cart-shopping"></i>
-								Cart
-							</Link>
+                <i className="fa-solid fa-cart-shopping"></i>
+                Cart({totalQuantity})
+              </Link>
 						</div>
 					)}
 				</nav>
