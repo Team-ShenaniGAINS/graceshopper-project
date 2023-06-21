@@ -1,5 +1,6 @@
 const requireAdmin = (req, res, next) => {
     try {
+        console.log("RUNNING AS ADMIN")
         if (req.user) {
             const { isAdmin } = req.user;
             if (isAdmin) {

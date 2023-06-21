@@ -277,3 +277,6 @@ input{
   text-align: center;
 }
 
+.productName {
+  color: rgb(54, 121, 221);
+}

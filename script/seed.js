@@ -25,7 +25,7 @@ async function seed() {
       name: 'Compact Web Shooter',
       price: 15,
       quantity: 100,
-      imgUrl: 'https://comicvine.gamespot.com/a/uploads/scale_small/0/1494/95930-17226-web-shooters.jpg',
+      imgUrl: 'https://i.pinimg.com/564x/07/49/77/074977054d817666ee26d5518ec320b3.jpg',
       description: 'Shoot webs and swing around like your favorite web head!',
     }),
     Product.create({
