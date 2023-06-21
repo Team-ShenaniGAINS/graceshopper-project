@@ -28,7 +28,7 @@ const Cart = () => {
 		if (!userId) {
 			// fetch from local
 			dispatch(fetchCartItemsLocal());
-		}
+		}git 
 	}, [dispatch]);
 
 	const handleDeleteItem = (productId) => {
