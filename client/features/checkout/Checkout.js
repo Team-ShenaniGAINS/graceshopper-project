@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { createOrder } from './checkoutSlice';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { clearCart } from '../cart/cartSlice';
+import { clearCartItems } from '../cart/cartSlice';
 
 const Checkout = () => {
   const [name, setName] = useState('');
@@ -40,7 +40,7 @@ const Checkout = () => {
       totalPrice,
     };
     dispatch(createOrder(orderData));
-    dispatch(clearCart());
+    dispatch(clearCartItems());
     setOrderComplete(true);
   };
 
@@ -50,7 +50,7 @@ const Checkout = () => {
       {orderComplete ? (
         <div>
           <p>Order Complete! Thank you for your purchase.</p>
-          <Link to="/">Back to Shop</Link>
+          <Link to="/shop">Back to Shop</Link>
         </div>
       ) : (
         <form onSubmit={handleFormSubmit}>

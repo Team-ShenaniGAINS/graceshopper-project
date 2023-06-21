@@ -76,24 +76,21 @@ export const updateCartItemQuantity = createAsyncThunk(
 export const selectTotalQuantity = createSelector(
 	(state) => state.cart,
 	(cartItems) => cartItems.reduce((total, item) => total + item.quantity, 0)
-  );  
+);
 
 const cartSlice = createSlice({
 	name: "cart",
 	initialState: [],
 	reducers: {
 		addCartItemLocal: (state, action) => {
-			debugger;
-			let existingLocalCart =
-				JSON.parse(localStorage.getItem("cartItems")) || [];
+			let existingLocalCart = JSON.parse(localStorage.getItem("cartItems")) || [];
 
 			const itemIndex = existingLocalCart.findIndex(
 				(item) => item.Product.id == action.payload.productId
 			);
 
 			if (itemIndex !== -1) {
-				existingLocalCart[itemIndex].quantity =
-					existingLocalCart[itemIndex].quantity + 1;
+				existingLocalCart[itemIndex].quantity = existingLocalCart[itemIndex].quantity + 1;
 			} else {
 				const newItem = { ...action.payload };
 				existingLocalCart = [...existingLocalCart, newItem];
@@ -104,9 +101,9 @@ const cartSlice = createSlice({
 
 		fetchCartItemsLocal: (state, action) => {
 			const cartItems = localStorage.getItem("cartItems");
-
 			return [...JSON.parse(cartItems)];
 		},
+
 		removeItemFromCartLocal: (state, action) => {
 			const cartItems = JSON.parse(localStorage.getItem("cartItems"));
 			const filtered = cartItems.filter(
@@ -115,33 +112,39 @@ const cartSlice = createSlice({
 			localStorage.setItem("cartItems", JSON.stringify(filtered));
 			return [...filtered];
 		},
+
+		clearCartItems: (state) => {
+			localStorage.removeItem("cartItems");
+			return [];
+		},
 	},
 	extraReducers: (builder) => {
-		builder.addCase(fetchCartItems.fulfilled, (state, action) => {
-			return action.payload;
-		});
-		builder.addCase(removeItemFromCart.fulfilled, (state, action) => {
-			return state.filter((item) => item.Product.id !== action.payload);
-		});
-		builder.addCase(updateCartItemQuantity.fulfilled, (state, action) => {
-			const index = state.findIndex(
-				(item) => item.Product.id === action.payload.ProductId
-			);
-			if (index !== -1) {
-				state[index].quantity = action.payload.quantity;
-			}
-		});
-		builder.addCase(addCartItem.fulfilled, (state, action) => {
-			const itemIndex = state.findIndex(
-				(item) => item.Product.id === action.payload.ProductId
-			);
+		builder
+			.addCase(fetchCartItems.fulfilled, (state, action) => {
+				return action.payload;
+			})
+			.addCase(removeItemFromCart.fulfilled, (state, action) => {
+				return state.filter((item) => item.Product.id !== action.payload);
+			})
+			.addCase(updateCartItemQuantity.fulfilled, (state, action) => {
+				const index = state.findIndex(
+					(item) => item.Product.id === action.payload.ProductId
+				);
+				if (index !== -1) {
+					state[index].quantity = action.payload.quantity;
+				}
+			})
+			.addCase(addCartItem.fulfilled, (state, action) => {
+				const itemIndex = state.findIndex(
+					(item) => item.Product.id === action.payload.ProductId
+				);
 
-			if (itemIndex !== -1) {
-				state[itemIndex].quantity = action.payload.quantity;
-			} else {
-				state.push(action.payload);
-			}
-		});
+				if (itemIndex !== -1) {
+					state[itemIndex].quantity = action.payload.quantity;
+				} else {
+					state.push(action.payload);
+				}
+			});
 	},
 });
 
@@ -149,5 +152,6 @@ export const {
 	addCartItemLocal,
 	fetchCartItemsLocal,
 	removeItemFromCartLocal,
+	clearCartItems,
 } = cartSlice.actions;
 export default cartSlice.reducer;
