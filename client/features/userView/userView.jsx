@@ -2,24 +2,42 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllUsers, selectUsers } from "./userViewSlice.js";
 
-const userView = () => {
+const UserView = () => {
     const dispatch = useDispatch();
-    const allUsers = useSelector(selectUsers)
+    const allUsers = useSelector(selectUsers);
+    const isLoading = false;
 
-    useEffect(() => {
-        console.log(allUsers)
-        dispatch(fetchAllUsers())
-    }, [dispatch])
+useEffect(() => {
+  dispatch(fetchAllUsers());
+}, [dispatch]);
 
-    return (
-        <h1>Users:
-            {allUsers.map((user) => (
-                <div>
-                    {user.username}
-                </div>
-            ))}
-        </h1>
-    )
+if (isLoading) {
+  return <div>Loading...</div>;
 }
 
-export default userView;
+return (
+  <div>
+    <h1>Users:</h1>
+    <ol>
+      {allUsers.map((user) => (
+        <li key={user.id}>
+          <div>
+            <strong>Username:</strong> {user.username}
+          </div>
+          <div>
+            <strong>Email:</strong> {user.email}
+          </div>
+          <div>
+            <strong>Full Name: </strong> {user.firstName} {user.lastName}
+          </div>
+          <div>
+            <strong>Admin:</strong> {user.isAdmin ? "Yes" : "No"}
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+);
+};
+
+export default UserView;

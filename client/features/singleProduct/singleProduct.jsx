@@ -16,7 +16,7 @@ const SingleProduct = () => {
 	const product = useSelector(selectProduct);
 	const cartItems = useSelector((state) => state.cart);
 	const me = useSelector((state) => state.auth.me);
-
+	const isAdmin = useSelector((state) => state.auth.me.isAdmin)
 	
 
 	useEffect(() => {
@@ -75,20 +75,24 @@ const SingleProduct = () => {
 				/>
 				<div className="singleProductRightSide">
 					<h1 className="single-product-title">{product.name}</h1>
-					<h2>Price: {product.price}</h2>
+					<h2>Price: ${product.price}.99</h2>
 					<h2>Stock: {product.quantity}</h2>
 					<p>{product.description}</p>
 				</div>
 
 				<button onClick={handleAddToCart}>Add to Cart</button>
 			</div>
-			<div className='editProductDiv'>
-				<h1>Update Product</h1>
+			{isAdmin && <div className='editProductDiv'>
+				<h1>Update Product 
+					<div className="productName">
+						{product.name}
+					</div>
+				</h1>
 				<h2>Product ID: {product.id}</h2>
 
 
 				<EditProduct productId={product.id}/>
-				</div>
+				</div>}
 		</div>
 	);
 };
