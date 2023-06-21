@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 const Products = () => {
   const dispatch = useDispatch();
   const allProducts = useSelector(selectProducts);
-  const isAdmin = useSelector((state) => state.auth.me.isAdmin)
+  const isAdmin = useSelector((state) => state.auth.me.isAdmin);
 
   useEffect(() => {
     console.log("Fetching all products");
@@ -28,12 +28,15 @@ const Products = () => {
         console.log("Error deleting product:", error);
       });
   };
+  console.log("allProducts:", allProducts);
+
+  const productsArray = Array.isArray(allProducts) ? allProducts : [];
 
   return (
     <div>
       <div className="container">
         <div className="products-grid">
-          {allProducts.map((product) => (
+          {productsArray.map((product) => (
             <div key={product.id} className="product-item">
               <div className="wrapper">
                 <Link to={`/products/${product.id}`}>
@@ -45,9 +48,13 @@ const Products = () => {
                   />
                 </Link>
               </div>
-              {isAdmin && <div className="delete-button">
-                <button onClick={() => handleDelete(product.id)}>Delete</button>
-              </div>}
+              {isAdmin && (
+                <div className="delete-button">
+                  <button onClick={() => handleDelete(product.id)}>
+                    Delete
+                  </button>
+                </div>
+              )}
             </div>
           ))}
         </div>
