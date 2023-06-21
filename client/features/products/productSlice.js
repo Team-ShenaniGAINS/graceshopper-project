@@ -6,8 +6,9 @@ export const fetchAllProducts = createAsyncThunk(
   async () => {
     try {
       const { data } = await axios.get("/api/products");
-
-      return data;
+      console.log("API Response:", data);
+      const productsArr = Object.values(data);
+      return productsArr;
     } catch (err) {
       console.log(err);
     }
