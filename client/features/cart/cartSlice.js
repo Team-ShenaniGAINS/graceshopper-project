@@ -78,22 +78,39 @@ const cartSlice = createSlice({
 	initialState: [],
 	reducers: {
 		addCartItemLocal: (state, action) => {
-			const itemIndex = state.findIndex(
-				(item) => item.Product.id === action.payload.ProductId
+			debugger;
+			let existingLocalCart = JSON.parse(localStorage.getItem("cartItems"));
+
+			const itemIndex = existingLocalCart.findIndex(
+				(item) => item.Product.id == action.payload.productId
 			);
 
+			// const itemIndex = state.findIndex(
+			// 	(item) => item.Product.id === action.payload.productId
+			// );
 			if (itemIndex !== -1) {
-				state[itemIndex].quantity = action.payload.quantity;
+				existingLocalCart[itemIndex].quantity =
+					existingLocalCart[itemIndex].quantity + 1;
 			} else {
-				state.push(action.payload);
+				const newItem = { ...action.payload };
+				existingLocalCart = [...existingLocalCart, newItem];
 			}
-			localStorage.setItem("cartItems", JSON.stringify(state));
+			localStorage.setItem("cartItems", JSON.stringify(existingLocalCart));
+			return existingLocalCart;
 		},
 
 		fetchCartItemsLocal: (state, action) => {
 			const cartItems = localStorage.getItem("cartItems");
-			console.log("store.,,,", cartItems);
-			state = [...JSON.parse(cartItems)];
+			console.log("localstorage store, ...", JSON.parse(cartItems));
+			return [...JSON.parse(cartItems)];
+		},
+		removeItemFromCartLocal: (state, action) => {
+			const cartItems = JSON.parse(localStorage.getItem("cartItems"));
+			const filtered = cartItems.filter(
+				(item) => item.Product.id !== action.payload.productId
+			);
+			localStorage.setItem("cartItems", JSON.stringify(filtered));
+			return [...filtered];
 		},
 	},
 	extraReducers: (builder) => {
@@ -126,5 +143,9 @@ const cartSlice = createSlice({
 	},
 });
 
-export const { addCartItemLocal, fetchCartItemsLocal } = cartSlice.actions;
+export const {
+	addCartItemLocal,
+	fetchCartItemsLocal,
+	removeItemFromCartLocal,
+} = cartSlice.actions;
 export default cartSlice.reducer;

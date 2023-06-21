@@ -16,7 +16,8 @@ const SingleProduct = () => {
 	const cartItems = useSelector((state) => state.cart);
 	const me = useSelector((state) => state.auth.me);
 
-	
+	console.log("Me,....", me);
+	console.log("Username,....", me.username);
 
 	useEffect(() => {
 		dispatch(fetchSingleProduct(id));
@@ -31,18 +32,6 @@ const SingleProduct = () => {
 		const itemInCart = cartItems.find((item) => item.productId === product.id);
 
 		if (itemInCart) {
-			// If item is already in cart, update the quantity.
-
-			// and user is not logged in
-
-			// if (!me.username) {
-
-			// 	dispatch(udpatedCartItemLocal({
-
-			// 	}))
-			// 	return;
-			// }
-
 			dispatch(
 				updateCartItemQuantity({
 					userId: me.id,
