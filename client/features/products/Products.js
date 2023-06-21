@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 const Products = () => {
   const dispatch = useDispatch();
   const allProducts = useSelector(selectProducts);
+  const isAdmin = useSelector((state) => state.auth.me.isAdmin)
 
   useEffect(() => {
     console.log("Fetching all products");
@@ -18,7 +19,14 @@ const Products = () => {
 
   const handleDelete = (productId) => {
     console.log("Deleting product with id:", productId);
-    dispatch(deleteProductAsync(productId));
+    dispatch(deleteProductAsync(productId))
+      .then(() => {
+        console.log("Product deleted successfully");
+        dispatch(fetchAllProducts());
+      })
+      .catch((error) => {
+        console.log("Error deleting product:", error);
+      });
   };
 
   return (
@@ -37,9 +45,9 @@ const Products = () => {
                   />
                 </Link>
               </div>
-              <div className="delete-button">
+              {isAdmin && <div className="delete-button">
                 <button onClick={() => handleDelete(product.id)}>Delete</button>
-              </div>
+              </div>}
             </div>
           ))}
         </div>

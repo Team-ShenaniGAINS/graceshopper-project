@@ -8,6 +8,7 @@ import SingleProduct from '../features/singleProduct/singleProduct.jsx';
 import { me } from './store';
 import Cart from "../features/cart/Cart";
 import CreateProduct from '../features/addProducts/addProduct.jsx';
+import userView from '../features/userView/userView';
 //import {cartSlice} from "../features/cart/cartSlice";
 
 /**
@@ -33,6 +34,7 @@ const AppRoutes = () => {
           <Route path="/shop" element={<Products />} />
           <Route path='/products/:id' element={<SingleProduct />} />
           {isAdmin && <Route path='/createProduct/' element={<CreateProduct />} />}
+          {isAdmin && <Route path='/users' element={<userView />} />}
         </Routes>
       ) : (
         <Routes>
