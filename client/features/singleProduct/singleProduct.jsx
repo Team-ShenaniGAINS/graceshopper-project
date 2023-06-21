@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-
 import { fetchSingleProduct, selectProduct } from "./singleProductSlice.js";
 import {
 	addCartItem,
@@ -10,21 +9,19 @@ import {
 	addCartItemLocal,
 } from "../cart/cartSlice.js";
 
-
-import EditProduct from "../addProducts/editProduct.jsx";
-
-
 const SingleProduct = () => {
 	const { id } = useParams();
-	console.log('THE ID IN SINGLEPRODUCT', id)
 	const dispatch = useDispatch();
 	const product = useSelector(selectProduct);
 	const cartItems = useSelector((state) => state.cart);
 	const me = useSelector((state) => state.auth.me);
 
+	console.log("Me,....", me);
+	console.log("Username,....", me.username);
 
 	useEffect(() => {
 		dispatch(fetchSingleProduct(id));
+		console.log("this is singleProduct.jsx", id, product);
 	}, [dispatch, id]);
 
 	useEffect(() => {
@@ -67,7 +64,7 @@ const SingleProduct = () => {
 			);
 		}
 	};
-	console.log("Product ID:", product.id);
+
 	return (
 		<div className="container">
 			<div className="single-product-container">
@@ -83,15 +80,7 @@ const SingleProduct = () => {
 					<p>{product.description}</p>
 				</div>
 
-					<button onClick={handleAddToCart}>Add to Cart</button>
-			</div>
-			<div className='editProductDiv'>
-				<h1>Update Product</h1>
-				<h2>Product ID: {product.id}</h2>
-				
-
-				<EditProduct productId={product.id}/>
-
+				<button onClick={handleAddToCart}>Add to Cart</button>
 			</div>
 		</div>
 	);
