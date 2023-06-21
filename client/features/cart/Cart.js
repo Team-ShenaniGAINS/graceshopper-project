@@ -7,6 +7,8 @@ import {
 } from "./cartSlice";
 import { Link } from "react-router-dom";
 import Footer from "../footer/Footer";
+import Checkout from '../checkout/Checkout';
+
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -20,7 +22,7 @@ const Cart = () => {
   const handleDeleteItem = (productId) => {
     dispatch(removeItemFromCart({ userId, productId }));
   };
-  
+
   const [quantities, setQuantities] = useState({});
 
   const handleQuantityChange = (productId, newQuantity) => {
@@ -89,13 +91,16 @@ const Cart = () => {
             );
           })}
         </tbody>
+
         <tfoot>
           <tr className="total">
             <td>
               <strong>Total: ${totalPrice}</strong>
             </td>
             <td className="checkout-btn">
-              <Link to="/orderplaced">Checkout</Link>
+              <Link to="/checkout">
+                <button disabled={cartItems.length === 0}>Checkout</button>
+              </Link>
             </td>
           </tr>
         </tfoot>
@@ -103,7 +108,7 @@ const Cart = () => {
     );
   };
 
- 
+
   return (
     <>
       <div className="cart-container">{renderCartItems()}</div>

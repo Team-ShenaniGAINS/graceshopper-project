@@ -62,7 +62,7 @@ export const updateCartItemQuantity = createAsyncThunk(
 export const selectTotalQuantity = createSelector(
 	(state) => state.cart,
 	(cartItems) => cartItems.reduce((total, item) => total + item.quantity, 0)
-  )
+  );  
 
 const cartSlice = createSlice({
 	name: "cart",
