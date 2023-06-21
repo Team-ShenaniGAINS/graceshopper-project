@@ -80,6 +80,9 @@ input{
 /* Footer.js */
 .footer{
   margin-top: 100%;
+  text-align: left;
+  background-color: rgb(116, 144, 187);
+  height: 3rem;
 }
 
 /* Products.css */
@@ -234,6 +237,7 @@ input{
   background-color: rgb(255,255,255);
 }
 
+
 /* addProduct.jsx */
 .Product-form{
   display: flex;
@@ -272,3 +276,4 @@ input{
 .editProductDiv>h2+{
   text-align: center;
 }
+

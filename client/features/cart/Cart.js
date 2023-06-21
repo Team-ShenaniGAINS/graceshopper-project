@@ -1,21 +1,28 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  fetchCartItems,
-  updateCartItemQuantity,
-  removeItemFromCart,
+	fetchCartItems,
+	updateCartItemQuantity,
+	removeItemFromCart,
+	fetchCartItemsLocal,
+	removeItemFromCartLocal,
 } from "./cartSlice";
 import { Link } from "react-router-dom";
 import Footer from "../footer/Footer";
 
 const Cart = () => {
-  const dispatch = useDispatch();
-  const cartItems = useSelector((state) => state.cart);
-  const userId = useSelector((state) => state.auth.me.id);
+	const dispatch = useDispatch();
+	const cartItems = useSelector((state) => state.cart);
+	const userId = useSelector((state) => state.auth.me.id);
 
-  useEffect(() => {
-    dispatch(fetchCartItems(userId));
-  }, [dispatch, userId]);
+	useEffect(() => {
+		if (!userId) {
+			// fetch from local
+			dispatch(fetchCartItemsLocal());
+		} else {
+			dispatch(fetchCartItems(userId));
+		}
+	}, [dispatch, userId]);
 
   const handleDeleteItem = (productId) => {
     dispatch(removeItemFromCart({ userId, productId }));
@@ -94,14 +101,14 @@ const Cart = () => {
     );
   };
 
-  return (
-    <>
-      <div className="cart-container">{renderCartItems()}</div>
-      <footer>
-        <Footer />
-      </footer>
-    </>
-  );
+	return (
+		<>
+			<div className="cart-container">{renderCartItems()}</div>
+			<footer>
+				<Footer />
+			</footer>
+		</>
+	);
 };
 
 export default Cart;
