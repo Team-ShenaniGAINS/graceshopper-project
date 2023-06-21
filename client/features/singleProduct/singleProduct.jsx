@@ -8,6 +8,7 @@ import {
 	fetchCartItems,
 	addCartItemLocal,
 } from "../cart/cartSlice.js";
+import EditProduct from "../addProducts/editProduct.jsx"
 
 const SingleProduct = () => {
 	const { id } = useParams();
@@ -81,6 +82,13 @@ const SingleProduct = () => {
 
 				<button onClick={handleAddToCart}>Add to Cart</button>
 			</div>
+			<div className='editProductDiv'>
+				<h1>Update Product</h1>
+				<h2>Product ID: {product.id}</h2>
+
+
+				<EditProduct productId={product.id}/>
+				</div>
 		</div>
 	);
 };
