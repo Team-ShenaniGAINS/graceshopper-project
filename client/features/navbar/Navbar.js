@@ -5,6 +5,7 @@ import { logout } from "../../app/store";
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
+  const isAdmin = useSelector((state) => state.auth.me.isAdmin);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const logoutAndRedirectHome = () => {
@@ -12,6 +13,7 @@ const Navbar = () => {
     navigate("/login");
   };
   return (
+
 		<>
 			<div>
 				<nav className="navbar">
@@ -37,6 +39,8 @@ const Navbar = () => {
 							>
 								Logout
 							</button>
+              {isAdmin && <Link to="/createProduct">Create Product</Link>}
+              {isAdmin && <Link to="/users">Users</Link>}
 						</div>
 					) : (
 						<div className="navbar-container">
@@ -58,6 +62,7 @@ const Navbar = () => {
 			</div>
 		</>
 	);
+
 };
 
 export default Navbar;

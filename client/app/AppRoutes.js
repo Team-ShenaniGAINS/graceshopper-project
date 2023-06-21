@@ -7,6 +7,8 @@ import Products from '../features/products/Products';
 import SingleProduct from '../features/singleProduct/singleProduct.jsx';
 import { me } from './store';
 import Cart from "../features/cart/Cart";
+import CreateProduct from '../features/addProducts/addProduct.jsx';
+import userView from '../features/userView/userView';
 //import {cartSlice} from "../features/cart/cartSlice";
 
 /**
@@ -15,6 +17,7 @@ import Cart from "../features/cart/Cart";
 
 const AppRoutes = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
+  const isAdmin = useSelector((state) => state.auth.me.isAdmin)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,6 +25,7 @@ const AppRoutes = () => {
   }, []);
 
   return (
+
 		<div>
 			{isLoggedIn ? (
 				<Routes>
@@ -30,7 +34,10 @@ const AppRoutes = () => {
 					<Route path="/cart" element={<Cart />} />
 					<Route path="/shop" element={<Products />} />
 					<Route path="/products/:id" element={<SingleProduct />} />
+           {isAdmin && <Route path='/createProduct/' element={<CreateProduct />} />}
+          {isAdmin && <Route path='/users' element={<userView />} />}
 				</Routes>
+
 			) : (
 				<Routes>
 					<Route
@@ -52,6 +59,7 @@ const AppRoutes = () => {
 			)}
 		</div>
 	);
+
 };
 
 export default AppRoutes;
