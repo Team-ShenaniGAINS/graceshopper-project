@@ -4,6 +4,8 @@ import {
   fetchCartItems,
   updateCartItemQuantity,
   removeItemFromCart,
+  fetchCartItemsLocal,
+  removeItemFromCartLocal,
 } from "./cartSlice";
 import { Link } from "react-router-dom";
 import Footer from "../footer/Footer";
@@ -16,10 +18,19 @@ const Cart = () => {
   const userId = useSelector((state) => state.auth.me.id);
 
   useEffect(() => {
-    dispatch(fetchCartItems(userId));
+    if (!userId) {
+      // fetch from local
+      dispatch(fetchCartItemsLocal());
+    } else {
+      dispatch(fetchCartItems(userId));
+    }
   }, [dispatch, userId]);
 
   const handleDeleteItem = (productId) => {
+    if (!userId) {
+      dispatch(removeItemFromCartLocal({ productId }));
+      return;
+    }
     dispatch(removeItemFromCart({ userId, productId }));
   };
 
@@ -47,7 +58,7 @@ const Cart = () => {
       <table className="cartTable">
         <tbody className="cartItemContainer">
           {cartItems.map((item) => {
-            const product = userId && item.Product ? item.Product : item;
+            const product = item.Product ? item.Product : item;
             return (
               <tr key={item.id}>
                 <td className="cart-product-row">
@@ -83,7 +94,6 @@ const Cart = () => {
                       <button onClick={() => handleDeleteItem(product.id)}>
                         <i className="fa-solid fa-trash-can"></i>❌
                       </button>
-                      <button>➕</button>
                     </td>
                   </div>
                 </td>
