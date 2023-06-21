@@ -15,7 +15,6 @@ export const fetchAllProducts = createAsyncThunk(
 );
 
 export const addProductAsync = createAsyncThunk(
-
   "products/createProduct",
   async ({ name, price, imgUrl, quantity, description }) => {
     const { data } = await axios.post("/api/products", {
@@ -37,6 +36,20 @@ export const deleteProductAsync = createAsyncThunk(
   }
 );
 
+export const editProductAsync = createAsyncThunk(
+  "products/editProduct",
+  async ({ productId, name, price, imgUrl, quantity, description }) => {
+    const { data } = await axios.put(`/api/products/${productId}`, {
+      name,
+      price,
+      quantity,
+      imgUrl,
+      description,
+    });
+    return data;
+  }
+);
+
 export const productsSlice = createSlice({
   name: "products",
   initialState: [],
@@ -51,8 +64,10 @@ export const productsSlice = createSlice({
       );
       return newState;
     });
+    builder.addCase(editProductAsync.fulfilled, (state, action) => {
+      return action.payload;
+    });
   },
-
 });
 
 export const selectProducts = (state) => {
