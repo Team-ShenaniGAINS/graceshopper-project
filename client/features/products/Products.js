@@ -39,15 +39,15 @@ const Products = () => {
           {productsArray.map((product) => (
             <div key={product.id} className="product-item">
               <div className="wrapper">
-                  <h1>{product.name}</h1>
-                  <Link to={`/products/${product.id}`}>
-                    <img
+                <h1>{product.name}</h1>
+                <Link to={`/products/${product.id}`}>
+                  <img
                     className="productsImages"
                     src={product.imgUrl}
                     alt={product.name}
                   />
-                  </Link>
-                  <h1>${product.price}</h1>
+                </Link>
+                <h1>${product.price}</h1>
               </div>
               {isAdmin && (
                 <div className="delete-button">

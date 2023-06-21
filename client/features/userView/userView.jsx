@@ -16,7 +16,7 @@ if (isLoading) {
 }
 
 return (
-  <div>
+  <div className='userViewWrapper'>
     <h1>Users:</h1>
     <ol>
       {allUsers.map((user) => (

@@ -280,3 +280,26 @@ input{
 .productName {
   color: rgb(54, 121, 221);
 }
+
+.userViewWrapper{
+  text-align: left;
+  border: 1px solid #ccc; 
+  background-color: rgb(255,255,255);
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.userViewWrapper>h1{
+  margin-left: 1.5%;
+  margin-right: 1.5%;
+}
+
+.userViewWrapper>h1+ol{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;  
+}
+
+.userViewWrapper>h1+ol>li{
+  margin: 1%;
+}
