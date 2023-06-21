@@ -8,7 +8,7 @@ import SingleProduct from '../features/singleProduct/singleProduct.jsx';
 import { me } from './store';
 import Cart from "../features/cart/Cart";
 import CreateProduct from '../features/addProducts/addProduct.jsx';
-import userView from '../features/userView/userView';
+import userView from '../features/userView/userView.jsx';
 //import {cartSlice} from "../features/cart/cartSlice";
 
 /**

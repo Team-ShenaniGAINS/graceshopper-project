@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllUsers, selectUsers } from "./userViewSlice";
+import { fetchAllUsers, selectUsers } from "./userViewSlice.js";
 
 const userView = () => {
     const dispatch = useDispatch();
@@ -12,7 +12,7 @@ const userView = () => {
     }, [dispatch])
 
     return (
-        <h1>
+        <h1>Users:
             {allUsers.map((user) => (
                 <div>
                     {user.username}
