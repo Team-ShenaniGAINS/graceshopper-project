@@ -7,9 +7,12 @@ import Products from '../features/products/Products';
 import SingleProduct from '../features/singleProduct/singleProduct.jsx';
 import { me } from './store';
 import Cart from "../features/cart/Cart";
+
+import Checkout from '../features/checkout/Checkout';
+
 import CreateProduct from '../features/addProducts/addProduct.jsx';
 import UserView from '../features/userView/userView.jsx';
-//import {cartSlice} from "../features/cart/cartSlice";
+
 
 /**
  * COMPONENT
@@ -34,6 +37,7 @@ const AppRoutes = () => {
 					<Route path="/cart" element={<Cart />} />
 					<Route path="/shop" element={<Products />} />
 					<Route path="/products/:id" element={<SingleProduct />} />
+          <Route path="/checkout" element={<Checkout />} />
         			{isAdmin && <Route path='/createProduct/' element={<CreateProduct />} />}
         			{isAdmin && <Route path='/users' element={<UserView />} />}
 				</Routes>
@@ -59,7 +63,6 @@ const AppRoutes = () => {
 			)}
 		</div>
 	);
-
 };
 
 export default AppRoutes;

@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import {
   fetchCartItems,
   updateCartItemQuantity,
@@ -9,10 +9,12 @@ import {
 } from "./cartSlice";
 import { Link } from "react-router-dom";
 import Footer from "../footer/Footer";
+import Checkout from '../checkout/Checkout';
+
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const cartItems = useSelector((state) => state.cart);
+  const cartItems = useSelector((state) => state.cart, shallowEqual);
   const userId = useSelector((state) => state.auth.me.id);
 
   useEffect(() => {
@@ -24,13 +26,6 @@ const Cart = () => {
     }
   }, [dispatch, userId]);
 
-  useEffect(() => {
-    if (!userId) {
-      // fetch from local
-      dispatch(fetchCartItemsLocal());
-    }
-  }, [dispatch]);
-
   const handleDeleteItem = (productId) => {
     if (!userId) {
       dispatch(removeItemFromCartLocal({ productId }));
@@ -38,7 +33,11 @@ const Cart = () => {
     }
     dispatch(removeItemFromCart({ userId, productId }));
   };
+
+  const [quantities, setQuantities] = useState({});
+
   const handleQuantityChange = (productId, newQuantity) => {
+    setQuantities(prev => ({ ...prev, [productId]: newQuantity }));
     if (newQuantity > 0) {
       dispatch(
         updateCartItemQuantity({ userId, productId, quantity: newQuantity })
@@ -57,14 +56,6 @@ const Cart = () => {
     }
     return (
       <table className="cartTable">
-        {/* <thead>
-          <tr>
-            <th>Title</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Remove</th>
-          </tr>
-        </thead> */}
         <tbody className="cartItemContainer">
           {cartItems.map((item) => {
             const product = item.Product ? item.Product : item;
@@ -80,25 +71,29 @@ const Cart = () => {
                     <p className="cart-product-title">{product.name}</p>
                     <div className="cart-quanity">
                       <td>
-                        <input
-                          type="number"
-                          value={item.quantity}
-                          min="1"
-                          onChange={(e) =>
-                            handleQuantityChange(
-                              product.id,
-                              parseInt(e.target.value)
-                            )
-                          }
-                        />
+                        <select
+                          value={quantities[product.id] || item.quantity}
+                          onChange={(e) => {
+                            const newQuantity = parseInt(e.target.value);
+                            handleQuantityChange(product.id, newQuantity);
+                          }}
+                        >
+                          {[...Array(10).keys()].map((value) => {
+                            const realValue = value + 1;
+                            return (
+                              <option key={realValue} value={realValue}>
+                                {realValue}
+                              </option>
+                            );
+                          })}
+                        </select>
                       </td>
-                      <td>${product.price * item.quantity}</td>
+                      <td>${product.price * (quantities[product.id] || item.quantity)}</td>
                     </div>
                     <td>
                       <button onClick={() => handleDeleteItem(product.id)}>
                         <i className="fa-solid fa-trash-can"></i>❌
                       </button>
-                      <button>➕</button>
                     </td>
                   </div>
                 </td>
@@ -106,19 +101,23 @@ const Cart = () => {
             );
           })}
         </tbody>
+
         <tfoot>
           <tr className="total">
             <td>
               <strong>Total: ${totalPrice}</strong>
             </td>
             <td className="checkout-btn">
-              <Link to="/orderplaced">Checkout</Link>
+              <Link to="/checkout">
+                <button disabled={cartItems.length === 0}>Checkout</button>
+              </Link>
             </td>
           </tr>
         </tfoot>
       </table>
     );
   };
+
 
   return (
     <>

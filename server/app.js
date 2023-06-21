@@ -1,6 +1,7 @@
 const path = require('path')
 const express = require('express')
 const morgan = require('morgan')
+const checkoutRoutes = require('./api/checkout'); // Make sure to adjust the path accordingly
 const app = express()
 module.exports = app
 
@@ -14,7 +15,10 @@ app.use(express.json())
 app.use('/auth', require('./auth'))
 app.use('/api', require('./api'))
 
-app.get('/', (req, res)=> res.sendFile(path.join(__dirname, '..', 'public/index.html')));
+// add the checkout routes
+app.use('/api/checkout', require('./api/checkout'));
+
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, '..', 'public/index.html')));
 
 // static file-serving middleware
 app.use(express.static(path.join(__dirname, '..', 'public')))

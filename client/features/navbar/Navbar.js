@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../app/store";
+import { selectTotalQuantity } from "../../features/cart/cartSlice";
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
@@ -12,8 +13,8 @@ const Navbar = () => {
     dispatch(logout());
     navigate("/login");
   };
+  const totalQuantity = useSelector(selectTotalQuantity);
   return (
-
 		<>
 			<div>
 				<nav className="navbar">
@@ -25,13 +26,13 @@ const Navbar = () => {
 								className="nav-logo"
 							></img>
 							<Link to="/home">Home</Link>
-
 							<Link to="/shop">Shop</Link>
-							<Link to="/cart">
-								<i className="fa-solid fa-cart-shopping"></i>
-								Cart
-							</Link>
-
+              {isAdmin && <Link to="/createProduct">Create Product</Link>}
+              {isAdmin && <Link to="/users">Users</Link>}
+              <Link to="/cart">
+                <i className="fa-solid fa-cart-shopping"></i>
+                Cart({totalQuantity})
+              </Link>
 							<button
 								className="logout-btn"
 								type="button"
@@ -39,8 +40,6 @@ const Navbar = () => {
 							>
 								Logout
 							</button>
-              {isAdmin && <Link to="/createProduct">Create Product</Link>}
-              {isAdmin && <Link to="/users">Users</Link>}
 						</div>
 					) : (
 						<div className="navbar-container">
@@ -62,7 +61,6 @@ const Navbar = () => {
 			</div>
 		</>
 	);
-
 };
 
 export default Navbar;
