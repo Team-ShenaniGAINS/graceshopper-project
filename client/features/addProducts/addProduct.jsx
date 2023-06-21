@@ -36,7 +36,7 @@ const CreateProduct = () => {
                 value={price}
                 onChange={(e) => setPrice(e.target.value)} 
                 />
-                <label>Quantity</label>
+                <label>Quantity:</label>
             <input 
                 name="quantitysetQuantity"
                 value={quantity}
