@@ -57,8 +57,9 @@ const SingleProduct = () => {
 				</div>
 					<button onClick={handleAddToCart}>Add to Cart</button>
 			</div>
-			<div>
-				<h1>Update Product: ID {product.id}</h1>
+			<div className='editProductDiv'>
+				<h1>Update Product</h1>
+				<h2>Product ID: {product.id}</h2>
 				
 
 				<EditProduct productId={product.id}/>

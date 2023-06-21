@@ -17,7 +17,6 @@ const Cart = () => {
     dispatch(fetchCartItems(userId));
   }, [dispatch, userId]);
 
-
   const handleDeleteItem = (productId) => {
     dispatch(removeItemFromCart({ userId, productId }));
   };
@@ -28,7 +27,6 @@ const Cart = () => {
       );
     }
   };
-
 
   const totalPrice = cartItems.reduce((acc, item) => {
     const price = item.Product.price;
@@ -41,14 +39,6 @@ const Cart = () => {
     }
     return (
       <table className="cartTable">
-        {/* <thead>
-          <tr>
-            <th>Title</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Remove</th>
-          </tr>
-        </thead> */}
         <tbody className="cartItemContainer">
           {cartItems.map((item) => {
             const product = userId && item.Product ? item.Product : item;
