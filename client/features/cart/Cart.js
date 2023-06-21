@@ -67,7 +67,7 @@ const Cart = () => {
         </thead> */}
 				<tbody className="cartItemContainer">
 					{cartItems.map((item) => {
-						// const product = userId && item.Product ? item.Product : item; /// allowed also Guest User here
+						
 						const product = item.Product ? item.Product : item;
 						return (
 							<tr key={item.id}>

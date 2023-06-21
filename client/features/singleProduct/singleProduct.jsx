@@ -16,8 +16,7 @@ const SingleProduct = () => {
 	const cartItems = useSelector((state) => state.cart);
 	const me = useSelector((state) => state.auth.me);
 
-	console.log("Me,....", me);
-	console.log("Username,....", me.username);
+	
 
 	useEffect(() => {
 		dispatch(fetchSingleProduct(id));
