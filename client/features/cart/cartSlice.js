@@ -15,18 +15,29 @@ export const fetchCartItems = createAsyncThunk(
 
 export const addCartItem = createAsyncThunk(
 	"cart/addCartItem",
-	async ({ userId, productId, quantity = 1, Product }, { rejectWithValue, getState }) => {
+	async (
+		{ userId, productId, quantity = 1, Product },
+		{ rejectWithValue, getState }
+	) => {
 		try {
 			const { cart } = getState();
-			const itemIndex = cart.findIndex(item => item.Product.id === productId);
+			const itemIndex = cart.findIndex((item) => item.Product.id === productId);
 
 			if (itemIndex !== -1) {
 				const item = cart[itemIndex];
 				const newQuantity = item.quantity + quantity;
-				const { data } = await axios.put(`/api/cart/${userId}/update`, { productId, quantity: newQuantity });
+				const { data } = await axios.put(`/api/cart/${userId}/update`, {
+					productId,
+					quantity: newQuantity,
+				});
 				return data;
 			} else {
-				const { data } = await axios.post(`/api/cart`, { userId, productId, quantity, Product });
+				const { data } = await axios.post(`/api/cart`, {
+					userId,
+					productId,
+					quantity,
+					Product,
+				});
 				return data;
 			}
 		} catch (error) {
@@ -51,7 +62,10 @@ export const updateCartItemQuantity = createAsyncThunk(
 	"cart/updateItemQuantity",
 	async ({ userId, productId, quantity }, { rejectWithValue }) => {
 		try {
-			const { data } = await axios.put(`/api/cart/${userId}/update`, { productId, quantity });
+			const { data } = await axios.put(`/api/cart/${userId}/update`, {
+				productId,
+				quantity,
+			});
 			return data;
 		} catch (error) {
 			return rejectWithValue(error.response.data);
@@ -62,7 +76,43 @@ export const updateCartItemQuantity = createAsyncThunk(
 const cartSlice = createSlice({
 	name: "cart",
 	initialState: [],
-	reducers: {},
+	reducers: {
+		addCartItemLocal: (state, action) => {
+			debugger;
+			let existingLocalCart = JSON.parse(localStorage.getItem("cartItems"));
+
+			const itemIndex = existingLocalCart.findIndex(
+				(item) => item.Product.id == action.payload.productId
+			);
+
+			// const itemIndex = state.findIndex(
+			// 	(item) => item.Product.id === action.payload.productId
+			// );
+			if (itemIndex !== -1) {
+				existingLocalCart[itemIndex].quantity =
+					existingLocalCart[itemIndex].quantity + 1;
+			} else {
+				const newItem = { ...action.payload };
+				existingLocalCart = [...existingLocalCart, newItem];
+			}
+			localStorage.setItem("cartItems", JSON.stringify(existingLocalCart));
+			return existingLocalCart;
+		},
+
+		fetchCartItemsLocal: (state, action) => {
+			const cartItems = localStorage.getItem("cartItems");
+			console.log("localstorage store, ...", JSON.parse(cartItems));
+			return [...JSON.parse(cartItems)];
+		},
+		removeItemFromCartLocal: (state, action) => {
+			const cartItems = JSON.parse(localStorage.getItem("cartItems"));
+			const filtered = cartItems.filter(
+				(item) => item.Product.id !== action.payload.productId
+			);
+			localStorage.setItem("cartItems", JSON.stringify(filtered));
+			return [...filtered];
+		},
+	},
 	extraReducers: (builder) => {
 		builder.addCase(fetchCartItems.fulfilled, (state, action) => {
 			return action.payload;
@@ -71,14 +121,18 @@ const cartSlice = createSlice({
 			return state.filter((item) => item.Product.id !== action.payload);
 		});
 		builder.addCase(updateCartItemQuantity.fulfilled, (state, action) => {
-            const index = state.findIndex((item) => item.Product.id === action.payload.ProductId);
-            if (index !== -1) {
-                state[index].quantity = action.payload.quantity;
-            }
-        });
-        
+			const index = state.findIndex(
+				(item) => item.Product.id === action.payload.ProductId
+			);
+			if (index !== -1) {
+				state[index].quantity = action.payload.quantity;
+			}
+		});
+
 		builder.addCase(addCartItem.fulfilled, (state, action) => {
-			const itemIndex = state.findIndex(item => item.Product.id === action.payload.ProductId);
+			const itemIndex = state.findIndex(
+				(item) => item.Product.id === action.payload.ProductId
+			);
 
 			if (itemIndex !== -1) {
 				state[itemIndex].quantity = action.payload.quantity;
@@ -89,4 +143,9 @@ const cartSlice = createSlice({
 	},
 });
 
+export const {
+	addCartItemLocal,
+	fetchCartItemsLocal,
+	removeItemFromCartLocal,
+} = cartSlice.actions;
 export default cartSlice.reducer;

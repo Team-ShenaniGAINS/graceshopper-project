@@ -25,36 +25,41 @@ const AppRoutes = () => {
   }, []);
 
   return (
-    <div>
-      {isLoggedIn ? (
-        <Routes>
-          <Route path="/*" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/cart" element = {<Cart/>}/>
-          <Route path="/shop" element={<Products />} />
-          <Route path='/products/:id' element={<SingleProduct />} />
-          {isAdmin && <Route path='/createProduct/' element={<CreateProduct />} />}
+
+		<div>
+			{isLoggedIn ? (
+				<Routes>
+					<Route path="/*" element={<Home />} />
+					<Route path="/home" element={<Home />} />
+					<Route path="/cart" element={<Cart />} />
+					<Route path="/shop" element={<Products />} />
+					<Route path="/products/:id" element={<SingleProduct />} />
+           {isAdmin && <Route path='/createProduct/' element={<CreateProduct />} />}
           {isAdmin && <Route path='/users' element={<userView />} />}
-        </Routes>
-      ) : (
-        <Routes>
-          <Route
-            path="/*"
-            element={<AuthForm name="login" displayName="Login" />}
-          />
-          <Route
-            path="/login"
-            element={<AuthForm name="login" displayName="Login" />}
-          />
-          <Route
-            path="/signup"
-            element={<AuthForm name="signup" displayName="Sign Up" />}
-          />
-          
-        </Routes>
-      )}
-    </div>
-  );
+				</Routes>
+
+			) : (
+				<Routes>
+					<Route
+						path="/*"
+						element={<AuthForm name="login" displayName="Login" />}
+					/>
+					<Route
+						path="/login"
+						element={<AuthForm name="login" displayName="Login" />}
+					/>
+					<Route
+						path="/signup"
+						element={<AuthForm name="signup" displayName="Sign Up" />}
+					/>
+					<Route path="/shop" element={<Products />} />
+					<Route path="/cart" element={<Cart />} />
+					<Route path="/products/:id" element={<SingleProduct />} />
+				</Routes>
+			)}
+		</div>
+	);
+
 };
 
 export default AppRoutes;

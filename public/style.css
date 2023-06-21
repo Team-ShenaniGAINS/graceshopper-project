@@ -80,6 +80,9 @@ input{
 /* Footer.js */
 .footer{
   margin-top: 100%;
+  text-align: left;
+  background-color: rgb(116, 144, 187);
+  height: 3rem;
 }
 
 /* Products.css */
@@ -225,3 +228,4 @@ input{
   border: 1px solid #ccc;   
   background-color: rgb(255,255,255);
 }
+
