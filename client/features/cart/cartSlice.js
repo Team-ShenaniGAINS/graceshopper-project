@@ -101,8 +101,13 @@ const cartSlice = createSlice({
 
 		fetchCartItemsLocal: (state, action) => {
 			const cartItems = localStorage.getItem("cartItems");
-			return [...JSON.parse(cartItems)];
-		},
+			if(cartItems === null) {
+			  return [];
+			} else {
+			  return [...JSON.parse(cartItems)];
+			}
+		  },
+		  
 
 		removeItemFromCartLocal: (state, action) => {
 			const cartItems = JSON.parse(localStorage.getItem("cartItems"));
