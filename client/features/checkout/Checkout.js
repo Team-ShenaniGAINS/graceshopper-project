@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { createOrder } from './checkoutSlice';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { clearCartItems } from '../cart/cartSlice';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { createOrder } from "./checkoutSlice";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { clearCartItems } from "../cart/cartSlice";
 
 const Checkout = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [streetNumber, setStreetNumber] = useState('');
-  const [apartmentNumber, setApartmentNumber] = useState('');
-  const [street, setStreet] = useState('');
-  const [city, setCity] = useState('');
-  const [state, setState] = useState('');
-  const [zipCode, setZipCode] = useState('');
-  const [creditCard, setCreditCard] = useState('');
-  const [expDate, setExpDate] = useState('');
-  const [cvv, setCvv] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [streetNumber, setStreetNumber] = useState("");
+  const [apartmentNumber, setApartmentNumber] = useState("");
+  const [street, setStreet] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zipCode, setZipCode] = useState("");
+  const [creditCard, setCreditCard] = useState("");
+  const [expDate, setExpDate] = useState("");
+  const [cvv, setCvv] = useState("");
   const [orderComplete, setOrderComplete] = useState(false);
 
   const dispatch = useDispatch();
@@ -45,7 +45,7 @@ const Checkout = () => {
   };
 
   return (
-    <div>
+    <div className="checkoutWrapper">
       <h2>Checkout</h2>
       {orderComplete ? (
         <div>
@@ -53,14 +53,14 @@ const Checkout = () => {
           <Link to="/shop">Back to Shop</Link>
         </div>
       ) : (
-        <form onSubmit={handleFormSubmit}>
+        <form className="checkoutForm" onSubmit={handleFormSubmit}>
           <div>
             <label>Name</label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder='First Name and Last Name'
+              placeholder="First Name and Last Name"
               required
             />
           </div>
@@ -70,7 +70,7 @@ const Checkout = () => {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder='Email Address'
+              placeholder="Email Address"
               required
             />
           </div>
@@ -80,7 +80,7 @@ const Checkout = () => {
               type="text"
               value={streetNumber}
               onChange={(e) => setStreetNumber(e.target.value)}
-              placeholder='Street Number'
+              placeholder="Street Number"
               required
             />
           </div>
@@ -90,7 +90,7 @@ const Checkout = () => {
               type="text"
               value={apartmentNumber}
               onChange={(e) => setApartmentNumber(e.target.value)}
-              placeholder='Apartment Number'
+              placeholder="Apartment Number"
             />
           </div>
           <div>
@@ -99,7 +99,7 @@ const Checkout = () => {
               type="text"
               value={street}
               onChange={(e) => setStreet(e.target.value)}
-              placeholder='Street Name'
+              placeholder="Street Name"
               required
             />
           </div>
@@ -109,7 +109,7 @@ const Checkout = () => {
               type="text"
               value={city}
               onChange={(e) => setCity(e.target.value)}
-              placeholder='City'
+              placeholder="City"
               required
             />
           </div>
@@ -119,7 +119,7 @@ const Checkout = () => {
               type="text"
               value={state}
               onChange={(e) => setState(e.target.value)}
-              placeholder='State'
+              placeholder="State"
               required
             />
           </div>
@@ -166,12 +166,17 @@ const Checkout = () => {
               required
             />
           </div>
+
           {cartItems && cartItems.length > 0 ? (
-            <div>
+            <div className="itemsWrapper">
               <h3>Cart Items</h3>
               {cartItems.map((item) => (
-                <div key={item.id}>
-                  <img src={item.Product.imgUrl} alt={item.Product.name} />
+                <div className="itemWrapper" key={item.id}>
+                  <img
+                    className="checkoutImg"
+                    src={item.Product.imgUrl}
+                    alt={item.Product.name}
+                  />
                   <p>{item.Product.name}</p>
                   <p>Quantity: {item.quantity}</p>
                   <p>Price: ${item.Product.price * item.quantity}</p>
@@ -186,7 +191,9 @@ const Checkout = () => {
               <p>Your cart is empty.</p>
             </div>
           )}
-          <button type="submit">Place Order</button>
+          <button className="checkoutButton" type="submit">
+            Place Order
+          </button>
         </form>
       )}
     </div>
