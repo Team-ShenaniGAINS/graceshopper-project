@@ -6,6 +6,7 @@ import {
   removeItemFromCart,
   fetchCartItemsLocal,
   removeItemFromCartLocal,
+  clearCartItems,
 } from "./cartSlice";
 import { Link } from "react-router-dom";
 import Footer from "../footer/Footer";
